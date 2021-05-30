@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login_page_ui/register.dart';
 import 'package:flutter_login_page_ui/homepage.dart';
@@ -17,6 +18,23 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  TextEditingController t = TextEditingController();
+  TextEditingController tt = TextEditingController();
+  FirebaseAuth fa = FirebaseAuth.instance;
+  Future<void> signin(String email, String password) async {
+    AuthResult ar =
+        await fa.signInWithEmailAndPassword(email: email, password: password);
+    print(ar.user);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (Context) {
+          return HomePage();
+        },
+      ),
+    );
+  }
+
   bool _isSelected = false;
 
   void _radio() {
@@ -85,12 +103,14 @@ class _MyAppState extends State<MyApp> {
                         height: 17.0,
                       ),
                       TextField(
+                        controller: t,
                         decoration: InputDecoration(labelText: 'E-mail'),
                       ),
                       Container(
                         height: 13.0,
                       ),
                       TextField(
+                        controller: tt,
                         obscureText: true,
                         decoration: InputDecoration(labelText: 'Password'),
                       ),
@@ -101,14 +121,7 @@ class _MyAppState extends State<MyApp> {
                         padding: const EdgeInsets.only(top: 20.0),
                         child: ElevatedButton(
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (Context) {
-                                    return HomePage();
-                                  },
-                                ),
-                              );
+                              signin(t.text, tt.text);
                             },
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
