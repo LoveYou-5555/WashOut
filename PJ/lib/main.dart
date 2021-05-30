@@ -85,8 +85,7 @@ class _MyAppState extends State<MyApp> {
                         height: 17.0,
                       ),
                       TextField(
-                        decoration:
-                            InputDecoration(labelText: 'E-mail'),
+                        decoration: InputDecoration(labelText: 'E-mail'),
                       ),
                       Container(
                         height: 13.0,
@@ -102,9 +101,14 @@ class _MyAppState extends State<MyApp> {
                         padding: const EdgeInsets.only(top: 20.0),
                         child: ElevatedButton(
                             onPressed: () {
-                              Navigator.push(context,MaterialPageRoute(builder: (Context){
-                                return HomePage();
-                              },), );
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (Context) {
+                                    return HomePage();
+                                  },
+                                ),
+                              );
                             },
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
@@ -115,14 +119,22 @@ class _MyAppState extends State<MyApp> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("Don't have an account?",style: TextStyle(color: Colors.grey),),
+                          Text(
+                            "Don't have an account?",
+                            style: TextStyle(color: Colors.grey),
+                          ),
                           TextButton(
                             child: Text("Create account"),
-                            onPressed: (){
-                              Navigator.push(context,MaterialPageRoute(builder: (Context){
-                                return RegisterPage();
-                              },),);
-                            } ,
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (Context) {
+                                    return RegisterPage();
+                                  },
+                                ),
+                              );
+                            },
                           ),
                         ],
                       )
