@@ -7,6 +7,12 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  bool x =false;
+  void changeX(){
+    setState(() {
+      x=!x;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,9 +20,9 @@ class _RegisterPageState extends State<RegisterPage> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Image.asset(
-          'assets/backbutton.png',width: 35.0, 
-        ),
+        // title: Image.asset(
+        //   'assets/backbutton.png',width: 35.0, 
+        // ),
         leading: BackButton(
           color: Colors.blue,
         ),
@@ -47,6 +53,11 @@ class _RegisterPageState extends State<RegisterPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    Checkbox(value: x, onChanged: (newValue){
+                      setState(() {
+                        x=newValue ;
+                      });
+                    }),
                     Text('I agree with our', style: TextStyle(color: Colors.grey),),
                     TextButton(
                       onPressed: () {},
