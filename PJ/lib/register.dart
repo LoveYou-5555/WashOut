@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_login_page_ui/main.dart';
 import 'package:flutter_login_page_ui/model/Profile.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -9,6 +10,13 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  Future<FirebaseUser> signUp(String email, String password) async {
+    AuthResult ar = await fa.createUserWithEmailAndPassword(
+        email: email, password: password);
+    return ar.user;
+  }
+
+  FirebaseAuth fa = FirebaseAuth.instance;
   bool x = false;
   void changeX() {
     setState(() {
@@ -60,9 +68,6 @@ class _RegisterPageState extends State<RegisterPage> {
                         TextFormField(
                           validator: RequiredValidator(
                               errorText: "กรุณาใส่ชื่อด้วยครับ"),
-                          onSaved: (String email) {
-                            profile.email = email;
-                          },
                           decoration: InputDecoration(labelText: 'LastName'),
                         ),
                         Container(height: 5),
@@ -72,6 +77,9 @@ class _RegisterPageState extends State<RegisterPage> {
                             EmailValidator(errorText: "รูปแบบ email ไม่ถูกต้อง")
                           ]),
                           decoration: InputDecoration(labelText: 'Email'),
+                          onSaved: (String email) {
+                            profile.email = email;
+                          },
                         ),
                         Container(height: 5),
                         TextFormField(
@@ -122,6 +130,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                 print(
                                     "email = ${profile.email} password = ${profile.password}");
                                 formKey.currentState.reset();
+                                signUp(profile.email, profile.password);
+                                Navigator.pop(context);
                               }
                             },
                             child: Padding(
