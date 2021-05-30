@@ -7,7 +7,6 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,12 +14,14 @@ class _RegisterPageState extends State<RegisterPage> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.white,
+        title: Image.asset(
+          'assets/backbutton.png',width: 35.0, 
+        ),
         leading: BackButton(
           color: Colors.blue,
         ),
       ),
       body: Column(
-        key: formKey,
         children: [
           Expanded(child: Container(), flex: 130),
           Expanded(
@@ -36,9 +37,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 Container(height: 20),
                 TextField(decoration: InputDecoration(labelText: 'Name'),),
                 Container(height: 10),
-                TextField(decoration: InputDecoration(labelText: 'LastName'),),
+                TextField(decoration: InputDecoration(labelText: 'UserName'),),
                 Container(height: 10),
-                TextField(keyboardType: TextInputType.emailAddress ,decoration: InputDecoration(labelText: 'Email'),),
+                TextField(decoration: InputDecoration(labelText: 'Email'),),
                 Container(height: 10),
                 TextField(obscureText: true,
                   decoration: InputDecoration(labelText: 'Password'),),
