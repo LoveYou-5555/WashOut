@@ -47,7 +47,7 @@ flutter:
    - assets/image_02.png
    - assets/logo.png
    - assets/logo_1.png
-
+   - assets/backbutton.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
