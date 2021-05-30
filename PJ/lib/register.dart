@@ -89,7 +89,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           onSaved: (String password) {
                             profile.password = password;
                           },
-                          decoration: InputDecoration(labelText: 'Password'),
+                          decoration: InputDecoration(labelText: 'Password(6-20 characters)'),
                         ),
                         Container(height: 5),
                         Row(

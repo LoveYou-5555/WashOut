@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_login_page_ui/register.dart';
 import 'package:flutter_login_page_ui/homepage.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'Widgets/FormCard.dart';
-import 'Widgets/SocialIcons.dart';
-import 'Widgets/CustomIcons.dart';
+
 
 void main() => runApp(MaterialApp(
       home: MyApp(),
@@ -112,7 +110,7 @@ class _MyAppState extends State<MyApp> {
                       TextField(
                         controller: tt,
                         obscureText: true,
-                        decoration: InputDecoration(labelText: 'Password'),
+                        decoration: InputDecoration(labelText: 'Password(6-20Characters)'),
                       ),
                       Container(
                         height: 40.0,
