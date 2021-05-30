@@ -20,6 +20,7 @@ class _RegisterPageState extends State<RegisterPage> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.white,
+        shadowColor: Colors.white,
         // title: Image.asset(
         //   'assets/backbutton.png',width: 35.0, 
         // ),
@@ -29,7 +30,7 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
       body: Column(
         children: [
-          Expanded(child: Container(), flex: 130),
+          Expanded(child: Container(), flex: 70),
           Expanded(
             flex: 766,
             child: Padding(
@@ -43,7 +44,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 Container(height: 20),
                 TextField(decoration: InputDecoration(labelText: 'Name'),),
                 Container(height: 10),
-                TextField(decoration: InputDecoration(labelText: 'UserName'),),
+                TextField(decoration: InputDecoration(labelText: 'LastName'),),
                 Container(height: 10),
                 TextField(decoration: InputDecoration(labelText: 'Email'),),
                 Container(height: 10),

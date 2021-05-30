@@ -10,24 +10,46 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        automaticallyImplyLeading: true,
+        leading: IconButton(onPressed: (){}, icon: Icon(Icons.format_list_bulleted_outlined),color: Colors.blue,),
+        actions: [Image.asset("assets/logo_1.png",
+            height: 51.0,
+            width: 125.0,
+        ),],
+        toolbarHeight: 90,
+        backgroundColor: Colors.grey[200],
+        shadowColor: Colors.white,
+
+      ),
       resizeToAvoidBottomInset: false,
       body: Column(
         children: [
-          Expanded(child: Container(color:Colors.grey),flex:125),
-          Expanded(flex: 771,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30.0),
-            child: Container(
-              child: Column(children: [
-                Image(
-                  image: AssetImage("assets/addcarwash.png"),
-                  ),
-            ],),),
-          ),
+          Container(height: 50,),
+          Expanded(
+            flex: 771,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
+              child: Container(
+                child: Column(
+                  children: [
+                    TextButton(
+                      onPressed: () {},
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.add_circle_outline,size: 35),
+                          Text('Add car wash',style: TextStyle(fontSize: 25),),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
           )
         ],
       ),
-
     );
   }
 }
