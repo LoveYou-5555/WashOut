@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_login_page_ui/register.dart';
+import 'package:flutter_login_page_ui/homepage.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'Widgets/FormCard.dart';
 import 'Widgets/SocialIcons.dart';
-import 'CustomIcons.dart';
+import 'Widgets/CustomIcons.dart';
 
 void main() => runApp(MaterialApp(
       home: MyApp(),
@@ -99,7 +101,11 @@ class _MyAppState extends State<MyApp> {
                       Padding(
                         padding: const EdgeInsets.only(top: 20.0),
                         child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(context,MaterialPageRoute(builder: (Context){
+                                return HomePage();
+                              },), );
+                            },
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 120.0, vertical: 15.0),
@@ -109,10 +115,14 @@ class _MyAppState extends State<MyApp> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("Don't have an account? "),
+                          Text("Don't have an account?",style: TextStyle(color: Colors.grey),),
                           TextButton(
                             child: Text("Create account"),
-                            onPressed: () => print("hi"),
+                            onPressed: (){
+                              Navigator.push(context,MaterialPageRoute(builder: (Context){
+                                return RegisterPage();
+                              },),);
+                            } ,
                           ),
                         ],
                       )
