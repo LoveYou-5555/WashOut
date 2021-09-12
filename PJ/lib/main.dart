@@ -157,7 +157,7 @@ class _MyAppState extends State<MyApp> {
                             style: TextStyle(color: Colors.grey),
                           ),
                           TextButton(
-                            child: Text("Login Merchant"),
+                            child: Text("Login Merchant",style:TextStyle(color: Colors.red)),
                             onPressed: () {
                               Navigator.push(
                                 context,
