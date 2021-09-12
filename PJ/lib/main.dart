@@ -148,6 +148,28 @@ class _MyAppState extends State<MyApp> {
                             },
                           ),
                         ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "You're Merchant?",
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                          TextButton(
+                            child: Text("Login Merchant"),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (Context) {
+                                    return RegisterPage();
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                        ],
                       )
                     ],
                   ),
