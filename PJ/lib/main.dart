@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_login_page_ui/loginmerchant.dart';
 import 'package:flutter_login_page_ui/register.dart';
 import 'package:flutter_login_page_ui/homepage.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 
 void main() => runApp(MaterialApp(
       home: MyApp(),
@@ -110,7 +110,8 @@ class _MyAppState extends State<MyApp> {
                       TextField(
                         controller: tt,
                         obscureText: true,
-                        decoration: InputDecoration(labelText: 'Password(6-20Characters)'),
+                        decoration: InputDecoration(
+                            labelText: 'Password(6-20Characters)'),
                       ),
                       Container(
                         height: 40.0,
@@ -157,13 +158,14 @@ class _MyAppState extends State<MyApp> {
                             style: TextStyle(color: Colors.grey),
                           ),
                           TextButton(
-                            child: Text("Login Merchant",style:TextStyle(color: Colors.red)),
+                            child: Text("Login Merchant",
+                                style: TextStyle(color: Colors.red)),
                             onPressed: () {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (Context) {
-                                    return RegisterPage();
+                                    return LoginMerchantPage();
                                   },
                                 ),
                               );

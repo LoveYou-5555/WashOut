@@ -16,9 +16,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: new AppBar(
-         iconTheme: IconThemeData(
-    color: Colors.blue
-  ),
+        iconTheme: IconThemeData(color: Colors.blue),
         actions: [
           Image.asset(
             "assets/logo_1.png",
@@ -33,27 +31,35 @@ class _HomePageState extends State<HomePage> {
       drawer: new Drawer(
         child: ListView(
           children: <Widget>[
-          new UserAccountsDrawerHeader(accountName: new Text('AAA'), accountEmail: new Text('haha@gmail.com'),currentAccountPicture: new CircleAvatar(
-            backgroundImage: new NetworkImage('url'),
-          ),)
-        ],),
+            new UserAccountsDrawerHeader(
+              accountName: new Text('AAA'),
+              accountEmail: new Text('haha@gmail.com'),
+              currentAccountPicture: new CircleAvatar(
+                backgroundImage: new NetworkImage('url'),
+              ),
+            )
+          ],
+        ),
       ),
       resizeToAvoidBottomInset: false,
       body: Column(
         children: [
           TextButton(
             onPressed: () {
-              auth.signOut().then((value){
+              auth.signOut().then((value) {
                 Navigator.pushReplacement(context,
-                 MaterialPageRoute(builder: (context){
-                   return MyApp();
-                 }));
+                    MaterialPageRoute(builder: (context) {
+                  return MyApp();
+                }));
               });
             },
             child: Row(
               children: [
                 Icon(Icons.arrow_back_ios),
-                Text('Sigh Out',style: TextStyle(color: Colors.black),)
+                Text(
+                  'Sigh Out',
+                  style: TextStyle(color: Colors.black),
+                )
               ],
             ),
           ),
@@ -69,7 +75,8 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     TextButton(
                       onPressed: () {
-                        Navigator.push(context,MaterialPageRoute(builder: (context){
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
                           return SearchCarwashIdPage();
                         }));
                       },
@@ -91,8 +98,6 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      
-        
     );
   }
 }

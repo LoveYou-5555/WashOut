@@ -13,9 +13,7 @@ class _AddCarwashIdPageState extends State<AddCarwashIdPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: new AppBar(
-         iconTheme: IconThemeData(
-    color: Colors.blue
-  ),
+        iconTheme: IconThemeData(color: Colors.blue),
         actions: [
           Image.asset(
             "assets/logo_1.png",
@@ -30,10 +28,15 @@ class _AddCarwashIdPageState extends State<AddCarwashIdPage> {
       drawer: new Drawer(
         child: ListView(
           children: <Widget>[
-          new UserAccountsDrawerHeader(accountName: new Text('AAA'), accountEmail: new Text('haha@gmail.com'),currentAccountPicture: new CircleAvatar(
-            backgroundImage: new NetworkImage('url'),
-          ),)
-        ],),
+            new UserAccountsDrawerHeader(
+              accountName: new Text('AAA'),
+              accountEmail: new Text('haha@gmail.com'),
+              currentAccountPicture: new CircleAvatar(
+                backgroundImage: new NetworkImage('url'),
+              ),
+            )
+          ],
+        ),
       ),
       resizeToAvoidBottomInset: false,
       body: Column(
