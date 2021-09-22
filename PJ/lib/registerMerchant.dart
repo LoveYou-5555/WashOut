@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_login_page_ui/loginmerchant.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
-import 'main.dart';
+
 import 'model/Profile.dart';
 
 class RegistermPage extends StatefulWidget {

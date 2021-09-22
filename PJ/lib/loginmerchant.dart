@@ -4,7 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_login_page_ui/homepage.dart';
 import 'package:flutter_login_page_ui/homepagemerchant.dart';
 import 'package:flutter_login_page_ui/main.dart';
+<<<<<<< Updated upstream
 import 'package:flutter_login_page_ui/registermerchant.dart';
+=======
+
+import 'package:flutter_login_page_ui/registermerchant.dart';
+
+>>>>>>> Stashed changes
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginMerchantPage extends StatefulWidget {

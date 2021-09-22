@@ -1,6 +1,8 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_login_page_ui/main.dart';
 import 'package:flutter_login_page_ui/model/Profile.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -133,6 +135,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                 formKey.currentState.reset();
                                 signUp(profile.email, profile.password);
                                 Navigator.pop(context);
+                                Fluttertoast.showToast(
+                                    msg: profile.email,
+                                    gravity: ToastGravity.CENTER);
                               }
                             },
                             child: Padding(

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_login_page_ui/Registercar.dart';
 import 'package:flutter_login_page_ui/loginmerchant.dart';
 import 'package:flutter_login_page_ui/register.dart';
 import 'package:flutter_login_page_ui/homepage.dart';
@@ -35,7 +36,7 @@ class _MyAppState extends State<MyApp> {
 
   bool _isSelected = false;
 
-  void _radio() {
+  void_radio() {
     setState(() {
       _isSelected = !_isSelected;
     });
@@ -165,7 +166,7 @@ class _MyAppState extends State<MyApp> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (Context) {
-                                    return RegisterPage();
+                                    return registercar();
                                   },
                                 ),
                               );

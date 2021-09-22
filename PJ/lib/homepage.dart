@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_login_page_ui/searchcarwashid.dart';
 import 'package:flutter_login_page_ui/main.dart';
 
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -33,7 +34,7 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             new UserAccountsDrawerHeader(
               accountName: new Text('AAA'),
-              accountEmail: new Text('haha@gmail.com'),
+              accountEmail: new Text(auth.currentUser()),
               currentAccountPicture: new CircleAvatar(
                 backgroundImage: new NetworkImage(
                     'https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg'),
