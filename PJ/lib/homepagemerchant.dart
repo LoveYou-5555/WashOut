@@ -88,6 +88,7 @@ class _HomePageMerchantPageState extends State<HomePageMerchantPage> {
           ),
         ],
       ),
+      
     );
   }
 }
