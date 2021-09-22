@@ -2,10 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login_page_ui/homepage.dart';
+import 'package:flutter_login_page_ui/homepagemerchant.dart';
 import 'package:flutter_login_page_ui/main.dart';
-import 'package:flutter_login_page_ui/register.dart';
-import 'package:flutter_login_page_ui/registerMerchant.dart';
-import 'package:flutter_login_page_ui/searchcarwashid.dart';
+import 'package:flutter_login_page_ui/registermerchant.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginMerchantPage extends StatefulWidget {
@@ -26,7 +25,7 @@ class _LoginMerchantPageState extends State<LoginMerchantPage> {
       context,
       MaterialPageRoute(
         builder: (Context) {
-          return HomePage();
+          return HomePageMerchantPage();
         },
       ),
     );
@@ -81,8 +80,10 @@ class _LoginMerchantPageState extends State<LoginMerchantPage> {
                 child: Container(
                   child: Column(
                     children: [
-                      Image(
-                        image: AssetImage("assets/logo_2.png"),
+                      Image.asset(
+                        "assets/logo_2.png",
+                        height: 85,
+                        width: 224,
                       ),
                       Container(
                         height: 60.0,
@@ -112,8 +113,30 @@ class _LoginMerchantPageState extends State<LoginMerchantPage> {
                         decoration: InputDecoration(
                             labelText: 'Password(6-20Characters)'),
                       ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Forget Password?",
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                          TextButton(
+                            child: Text("Reset Password"),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (Context) {
+                                    return RegistermPage();
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
                       Container(
-                        height: 40.0,
+                        height: 5.0,
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 20.0),

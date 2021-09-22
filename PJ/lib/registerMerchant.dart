@@ -9,10 +9,10 @@ import 'model/Profile.dart';
 
 class RegistermPage extends StatefulWidget {
   @override
-  _RegisterPageState createState() => _RegisterPageState();
+  _RegistermPageState createState() => _RegistermPageState();
 }
 
-class _RegisterPageState extends State<RegistermPage> {
+class _RegistermPageState extends State<RegistermPage> {
   Future<FirebaseUser> signUp(String email, String password) async {
     AuthResult ar = await fa.createUserWithEmailAndPassword(
         email: email, password: password);

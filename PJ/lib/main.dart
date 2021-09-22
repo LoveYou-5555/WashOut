@@ -82,9 +82,10 @@ class _MyAppState extends State<MyApp> {
                 child: Container(
                   child: Column(
                     children: [
-                      Image(
-                        image: AssetImage("assets/logo_1.png"),
-                      ),
+                      Image.asset(
+                        "assets/logo_1.png"
+                        ),
+                      
                       Container(
                         height: 60.0,
                       ),
@@ -113,8 +114,30 @@ class _MyAppState extends State<MyApp> {
                         decoration: InputDecoration(
                             labelText: 'Password(6-20Characters)'),
                       ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Forget Password?",
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                          TextButton(
+                            child: Text("Reset Password"),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (Context) {
+                                    return RegisterPage();
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
                       Container(
-                        height: 40.0,
+                        height: 20.0,
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 20.0),
