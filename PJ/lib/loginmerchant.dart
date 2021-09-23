@@ -2,10 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login_page_ui/homepage.dart';
+import 'package:flutter_login_page_ui/homepagemerchant.dart';
 import 'package:flutter_login_page_ui/main.dart';
-import 'package:flutter_login_page_ui/register.dart';
 import 'package:flutter_login_page_ui/registermerchant.dart';
-import 'package:flutter_login_page_ui/searchcarwashid.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginMerchantPage extends StatefulWidget {
@@ -19,14 +18,14 @@ class _LoginMerchantPageState extends State<LoginMerchantPage> {
   TextEditingController tt = TextEditingController();
   FirebaseAuth fa = FirebaseAuth.instance;
   Future<void> signin(String email, String password) async {
-    AuthResult ar =
-        await fa.signInWithEmailAndPassword(email: email, password: password);
-    print(ar.user);
+    // AuthResult ar =
+    //     await fa.signInWithEmailAndPassword(email: email, password: password);
+    // print(ar.user);
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (Context) {
-          return HomePage();
+          return HomePageMerchantPage();
         },
       ),
     );
@@ -82,7 +81,9 @@ class _LoginMerchantPageState extends State<LoginMerchantPage> {
                   child: Column(
                     children: [
                       Image.asset(
-                        "assets/logo_2.png" ,height:85 ,width: 224,
+                        "assets/logo_2.png",
+                        height: 85,
+                        width: 224,
                       ),
                       Container(
                         height: 60.0,
