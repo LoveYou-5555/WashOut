@@ -1,26 +1,24 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_login_page_ui/searchcarwashid.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_login_page_ui/main.dart';
 
-class HomePage extends StatefulWidget {
+class QueueBookingMerchantPage extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _QueueBookingMerchantPageState createState() => _QueueBookingMerchantPageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  final auth = FirebaseAuth.instance;
-
+class _QueueBookingMerchantPageState extends State<QueueBookingMerchantPage> {
+  final aunt = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: new AppBar(
-        iconTheme: IconThemeData(color: Colors.blue),
+        iconTheme: IconThemeData(color: Colors.red),
         actions: [
           Image.asset(
-            "assets/logo_1.png",
+            "assets/logo_2.png",
             height: 51.0,
             width: 125.0,
           ),
@@ -42,7 +40,7 @@ class _HomePageState extends State<HomePage> {
             ),
             TextButton(
               onPressed: () {
-                auth.signOut().then((value) {
+                aunt.signOut().then((value) {
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) {
                     return MyApp();
@@ -66,40 +64,29 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           Container(
-            height: 50,
+            height: 30,
           ),
           Expanded(
             flex: 771,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30.0),
               child: Container(
-                child: Column(
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return SearchCarwashIdPage();
-                        }));
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.add_circle_outline, size: 35),
-                          Text(
-                            'Add car wash',
-                            style: TextStyle(fontSize: 25),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
+                  child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Text('เมนูลัด',
+                          style: TextStyle(
+                              fontSize: 30.0, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                ],
+              )),
             ),
-          )
+          ),
         ],
       ),
+      
     );
   }
 }

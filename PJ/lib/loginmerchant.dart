@@ -18,9 +18,9 @@ class _LoginMerchantPageState extends State<LoginMerchantPage> {
   TextEditingController tt = TextEditingController();
   FirebaseAuth fa = FirebaseAuth.instance;
   Future<void> signin(String email, String password) async {
-    AuthResult ar =
-        await fa.signInWithEmailAndPassword(email: email, password: password);
-    print(ar.user);
+    // AuthResult ar =
+    //     await fa.signInWithEmailAndPassword(email: email, password: password);
+    // print(ar.user);
     Navigator.push(
       context,
       MaterialPageRoute(
