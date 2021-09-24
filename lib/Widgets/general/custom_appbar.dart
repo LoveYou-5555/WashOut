@@ -1,17 +1,23 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:washout/configs/app_color.dart';
 import 'package:washout/widgets/general/app_logo.dart';
 
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget{
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool isMerchant;
+  final Color iconColor;
 
-  const CustomAppBar({Key? key, this.isMerchant = false}) : super(key: key);
+  const CustomAppBar({
+    Key? key,
+    this.isMerchant = false,
+    this.iconColor = AppColor.customerPrimary,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      iconTheme: IconThemeData(color: Colors.blue),
+      iconTheme: IconThemeData(color: iconColor),
       actions: [
         SizedBox(
           height: 51.0,
@@ -28,7 +34,4 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget{
 
   @override
   Size get preferredSize => Size.fromHeight(56.0);
-
-
-
 }
