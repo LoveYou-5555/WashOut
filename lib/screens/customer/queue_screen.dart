@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:washout/widgets/general/carwash_card.dart';
 import 'package:washout/widgets/general/custom_appbar.dart';
 import 'package:washout/widgets/general/custom_back_button.dart';
+import 'package:washout/widgets/general/custom_button.dart';
 import 'package:washout/widgets/general/custom_drawer.dart';
+import 'package:washout/widgets/general/queue_status_ticket.dart';
 
 class QueueScreen extends StatefulWidget {
   const QueueScreen({Key? key}) : super(key: key);
@@ -14,6 +16,92 @@ class QueueScreen extends StatefulWidget {
 }
 
 class _QueueScreenState extends State<QueueScreen> {
+  bool _isOnService = true;
+
+  Widget _buildUserStatusTicket() {
+    return SizedBox(
+      height: 120,
+      child: Row(
+        children: [
+          Column(
+            children: [
+              Expanded(
+                flex: 7,
+                child: Container(
+                  padding: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Color(0xffB5B5B5),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Awaiting',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Expanded(
+            child: Column(
+              children: [
+                Expanded(
+                  flex: 13,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 16,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                      border: Border.all(color: Colors.grey),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              "Username 01",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 24),
+                            ),
+                            Text(
+                              "Nissan march",
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(4),
+                              decoration: BoxDecoration(
+                                color: Colors.green,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Text(
+                                "Repaint",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,53 +123,12 @@ class _QueueScreenState extends State<QueueScreen> {
             text: "Back",
             onPressed: () {},
           ),
-          // Container(
-          //   width: 300,
-          //   height: 100,
-          //   decoration: BoxDecoration(
-          //     borderRadius: BorderRadius.circular(10),
-          //   ),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.center,
-          //     children: [
-
-          //       // CircleAvatar(
-          //       //   radius: 50,
-          //       //   backgroundImage: NetworkImage(
-          //       //       'https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg'),
-          //       // ),
-          //       // SizedBox(
-          //       //   width: 20,
-          //       //   height: 60,
-          //       // ),
-          //       // Column(
-          //       //   children: [
-          //       //     Padding(padding: EdgeInsets.only(top: 20)),
-          //       //     Text(
-          //       //       'ABC CARCARE',
-          //       //       style: TextStyle(
-          //       //           color: Colors.black,
-          //       //           fontWeight: FontWeight.bold,
-          //       //           fontSize: 20),
-          //       //     ),
-          //       //     SizedBox(height: 10),
-          //       //     Text(
-          //       //       'ID: 123456',
-          //       //       style: TextStyle(
-          //       //           color: Colors.black,
-          //       //           fontWeight: FontWeight.bold,
-          //       //           fontSize: 15),
-          //       //     ),
-          //       //   ],
-          //       // ),
-          //     ],
-          //   ),
-          // ),
           CarwashCard(
             id: "123456",
-            imageUrl: "https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg",
+            imageUrl:
+                "https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg",
             name: "ABC Carcare",
-            onPressed: (){},
+            onPressed: () {},
             showBorder: false,
           ),
           SizedBox(height: 30),
@@ -118,118 +165,32 @@ class _QueueScreenState extends State<QueueScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 7,
-                        child: Container(
-                          child: Center(
-                              child: Text(
-                            'Washing',
-                            style: TextStyle(fontSize: 20, color: Colors.white),
-                          )),
-                          padding: EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Color(0xffFFC107),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 13,
-                        child: Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SizedBox(
-                                width: 25,
-                              ),
-                              Text(
-                                '2',
-                                style: TextStyle(fontSize: 20),
-                              ),
-                              Text(
-                                'Queue',
-                                style: TextStyle(fontSize: 15),
-                              ),
-                            ],
-                          ),
-                          padding: EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                              border: Border.all(color: Colors.grey)),
-                        ),
-                      )
-                    ],
+                  QueueStatusTicket(
+                    color: Color(0xffFFC107),
+                    ticketCount: 5,
+                    statusLabel: "Washing",
                   ),
                   SizedBox(height: 15),
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 7,
-                        child: Container(
-                          child: Center(
-                            child: Text(
-                              'Awaiting',
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.white),
-                            ),
-                          ),
-                          padding: EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Color(0xffB5B5B5),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 13,
-                        child: Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SizedBox(
-                                width: 25,
-                              ),
-                              Text(
-                                '1',
-                                style: TextStyle(fontSize: 20),
-                              ),
-                              Text(
-                                'Queue',
-                                style: TextStyle(fontSize: 15),
-                              ),
-                            ],
-                          ),
-                          padding: EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                              border: Border.all(color: Colors.grey)),
-                        ),
-                      )
-                    ],
+                  QueueStatusTicket(
+                    color: Color(0xffB5B5B5),
+                    ticketCount: 2,
+                    statusLabel: 'Awaiting',
                   ),
                   Spacer(),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 5.0,
-                        vertical: 5.0,
-                      ),
-                      child: Text(
-                        'Use service',
-                        style: TextStyle(fontSize: 18),
+                  if (!_isOnService)
+                    SizedBox(
+                      width: 200,
+                      child: CustomButton(
+                        onPressed: () {},
+                        text: "Use Service",
                       ),
                     ),
-                  ),
-                  SizedBox(height: 150),
                 ],
               ),
             ),
           ),
+          if (_isOnService)
+          _buildUserStatusTicket(),
         ],
       ),
     );
