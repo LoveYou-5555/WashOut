@@ -20,7 +20,7 @@ class _SearchCarwashScreenState extends State<SearchCarwashScreen> {
         iconTheme: IconThemeData(color: Colors.blue),
         actions: [
           Image.asset(
-            "assets/logo_1.png",
+            "assets/images/logo_customer.png",
             height: 51.0,
             width: 125.0,
           ),
