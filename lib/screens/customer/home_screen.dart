@@ -1,10 +1,90 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers
 
 import 'package:flutter/material.dart';
-import 'package:washout/screens/general/app_entry.dart';
-import 'package:washout/screens/search_carwash_screen.dart';
-import 'package:washout/widgets/general/custom_appbar.dart';
+import 'package:washout/Widgets/general/custom_appbar.dart';
+import 'package:washout/configs/app_color.dart';
+import 'package:washout/configs/asset_paths.dart';
+import 'package:washout/widgets/general/carwash_card.dart';
+import 'package:washout/widgets/general/custom_back_button.dart';
 import 'package:washout/widgets/general/custom_drawer.dart';
+import 'package:washout/widgets/general/text_button_with_icon.dart';
+
+// 'https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg'
+
+const _dummy = [
+  {
+    "id": "123456",
+    "name": "ABC Carwash",
+    "imageURL":
+        "https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg",
+  },
+  {
+    "id": "789102",
+    "name": "DEF Carwash",
+    "imageURL":
+        "https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg",
+  },
+  {
+    "id": "7eeeee2",
+    "name": "8min washer",
+    "imageURL":
+        "https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg",
+  },
+    {
+    "id": "123456",
+    "name": "ABC Carwash",
+    "imageURL":
+        "https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg",
+  },
+  {
+    "id": "789102",
+    "name": "DEF Carwash",
+    "imageURL":
+        "https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg",
+  },
+  {
+    "id": "7eeeee2",
+    "name": "8min washer",
+    "imageURL":
+        "https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg",
+  },
+    {
+    "id": "123456",
+    "name": "ABC Carwash",
+    "imageURL":
+        "https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg",
+  },
+  {
+    "id": "789102",
+    "name": "DEF Carwash",
+    "imageURL":
+        "https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg",
+  },
+  {
+    "id": "7eeeee2",
+    "name": "8min washer",
+    "imageURL":
+        "https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg",
+  },
+    {
+    "id": "123456",
+    "name": "ABC Carwash",
+    "imageURL":
+        "https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg",
+  },
+  {
+    "id": "789102",
+    "name": "DEF Carwash",
+    "imageURL":
+        "https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg",
+  },
+  {
+    "id": "7eeeee2",
+    "name": "8min washer",
+    "imageURL":
+        "https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg",
+  },
+];
 
 class HomeScreen extends StatefulWidget {
   static const routeName = "/homeScreen";
@@ -16,6 +96,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List<Map<String, dynamic>> _dataList = _dummy;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,52 +106,53 @@ class _HomeScreenState extends State<HomeScreen> {
         isMerchant: false,
       ),
       drawer: CustomDrawer(
-        accountEmail: "email@mail.com",
-        accountName: "Bob Somchai",
-        imageURL:
-            'https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg',
-        onSignOut: () {
-          Navigator.of(context)
-              .pushNamedAndRemoveUntil(AppEntry.routeName, (route) => false);
-        },
+        accountEmail: "mail@mail.com",
+        accountName: "Name Name",
+        onSignOut: () {},
       ),
       resizeToAvoidBottomInset: false,
-      body: Column(
-        children: [
-          Container(
-            height: 50,
-          ),
-          Expanded(
-            flex: 771,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30.0),
-              child: Container(
-                child: Column(
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return SearchCarwashScreen();
-                        }));
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.add_circle_outline, size: 35),
-                          Text(
-                            'Add car wash',
-                            style: TextStyle(fontSize: 25),
-                          ),
-                        ],
+      body: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 30,
+          horizontal: 30,
+        ),
+        child: Column(
+          children: [
+            TextButtonWithIcon(
+              icon: Icon(
+                Icons.add_circle_outline,
+                color: AppColor.customerPrimary,
+                size: 50,
+              ),
+              onPressed: () {},
+              text: "Add carwash",
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: _dummy.length,
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
+                      CarwashCard(
+                        id: _dummy[index]["id"] ?? "",
+                        imageUrl: _dummy[index]["imageURL"] ?? "",
+                        name: _dummy[index]["name"] ?? "",
+                        onPressed: () {},
                       ),
-                    )
-                  ],
-                ),
+                      if (index != _dummy.length - 1)
+                        SizedBox(
+                          height: 20,
+                        ),
+                    ],
+                  );
+                },
               ),
             ),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }

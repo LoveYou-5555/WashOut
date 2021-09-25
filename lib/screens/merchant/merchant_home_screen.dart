@@ -2,6 +2,8 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:washout/Widgets/general/custom_appbar.dart';
+import 'package:washout/configs/app_color.dart';
 
 class MerchantHomeScreen extends StatefulWidget {
   const MerchantHomeScreen({Key? key}) : super(key: key);
@@ -15,18 +17,9 @@ class _MerchantHomeScreenState extends State<MerchantHomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.red),
-        actions: [
-          Image.asset(
-            "assets/logo_2.png",
-            height: 51.0,
-            width: 125.0,
-          ),
-        ],
-        toolbarHeight: 90,
-        backgroundColor: Colors.grey[200],
-        shadowColor: Colors.white,
+      appBar: CustomAppBar(
+        isMerchant: true,
+        iconColor: AppColor.merchantPrimary,
       ),
       drawer: Drawer(
         child: ListView(
