@@ -1,6 +1,10 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:washout/widgets/general/carwash_card.dart';
+import 'package:washout/widgets/general/custom_appbar.dart';
+import 'package:washout/widgets/general/custom_back_button.dart';
+import 'package:washout/widgets/general/custom_drawer.dart';
 
 class QueueScreen extends StatefulWidget {
   const QueueScreen({Key? key}) : super(key: key);
@@ -14,91 +18,71 @@ class _QueueScreenState extends State<QueueScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.blue),
-        actions: [
-          Image.asset(
-            "assets/logo_1.png",
-            height: 51.0,
-            width: 125.0,
-          ),
-        ],
-        toolbarHeight: 90,
-        backgroundColor: Colors.grey[200],
-        shadowColor: Colors.white,
+      appBar: CustomAppBar(
+        isMerchant: false,
       ),
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            UserAccountsDrawerHeader(
-              accountName: Text('AAA'),
-              accountEmail: Text('haha@gmail.com'),
-              currentAccountPicture: CircleAvatar(
-                backgroundImage: NetworkImage('url'),
-              ),
-            )
-          ],
-        ),
+      drawer: CustomDrawer(
+        accountEmail: "mail@mail.com",
+        accountName: "Bob Boc",
+        onSignOut: () {},
+        imageURL:
+            "https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg",
       ),
       resizeToAvoidBottomInset: false,
       body: Column(
         children: [
-          TextButton(
-            onPressed: () {
-             
-
-            },
-            child: Row(
-              children: [
-                Icon(Icons.arrow_back_ios),
-                Text(
-                  'Back',
-                  style: TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.bold),
-                )
-              ],
-            ),
+          CustomBackButton(
+            text: "Back",
+            onPressed: () {},
           ),
-          Container(
-            width: 300,
-            height: 100,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                  "assets/face.png",
-                  height: 90,
-                  width: 90,
-                ),
-                SizedBox(
-                  width: 20,
-                  height: 60,
-                ),
-                Column(
-                  children: [
-                    Padding(padding: EdgeInsets.only(top: 20)),
-                    Text(
-                      'ABC CARCARE',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20),
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      'ID: 123456',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15),
-                    ),
-                  ],
-                )
-              ],
-            ),
+          // Container(
+          //   width: 300,
+          //   height: 100,
+          //   decoration: BoxDecoration(
+          //     borderRadius: BorderRadius.circular(10),
+          //   ),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: [
+
+          //       // CircleAvatar(
+          //       //   radius: 50,
+          //       //   backgroundImage: NetworkImage(
+          //       //       'https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg'),
+          //       // ),
+          //       // SizedBox(
+          //       //   width: 20,
+          //       //   height: 60,
+          //       // ),
+          //       // Column(
+          //       //   children: [
+          //       //     Padding(padding: EdgeInsets.only(top: 20)),
+          //       //     Text(
+          //       //       'ABC CARCARE',
+          //       //       style: TextStyle(
+          //       //           color: Colors.black,
+          //       //           fontWeight: FontWeight.bold,
+          //       //           fontSize: 20),
+          //       //     ),
+          //       //     SizedBox(height: 10),
+          //       //     Text(
+          //       //       'ID: 123456',
+          //       //       style: TextStyle(
+          //       //           color: Colors.black,
+          //       //           fontWeight: FontWeight.bold,
+          //       //           fontSize: 15),
+          //       //     ),
+          //       //   ],
+          //       // ),
+          //     ],
+          //   ),
+          // ),
+          CarwashCard(
+            id: "123456",
+            imageUrl: "https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg",
+            name: "ABC Carcare",
+            onPressed: (){},
+            showBorder: false,
           ),
           SizedBox(height: 30),
           Row(
@@ -142,8 +126,7 @@ class _QueueScreenState extends State<QueueScreen> {
                           child: Center(
                               child: Text(
                             'Washing',
-                            style:
-                                TextStyle(fontSize: 20, color: Colors.white),
+                            style: TextStyle(fontSize: 20, color: Colors.white),
                           )),
                           padding: EdgeInsets.all(20),
                           decoration: BoxDecoration(
@@ -189,8 +172,8 @@ class _QueueScreenState extends State<QueueScreen> {
                           child: Center(
                             child: Text(
                               'Awaiting',
-                              style: TextStyle(
-                                  fontSize: 20, color: Colors.white),
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.white),
                             ),
                           ),
                           padding: EdgeInsets.all(20),
@@ -230,9 +213,7 @@ class _QueueScreenState extends State<QueueScreen> {
                   ),
                   Spacer(),
                   ElevatedButton(
-                    onPressed: () {
-                     
-                    },
+                    onPressed: () {},
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 5.0,
