@@ -8,6 +8,26 @@ class CustomDrawer extends StatelessWidget {
   final String imageURL;
   final void Function() onSignOut;
 
+  Future<void> _showSignOutDialog(BuildContext context) async {
+    showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text('Logout'),
+        content: const Text('Are you sure you want to Logout?'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(context, 'Cancel'),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {},
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+
   const CustomDrawer({
     Key? key,
     required this.accountName,
@@ -31,7 +51,7 @@ class CustomDrawer extends StatelessWidget {
             ),
           ),
           TextButton(
-            onPressed: onSignOut,
+            onPressed: () => _showSignOutDialog(context),
             child: Row(
               children: [
                 Icon(Icons.arrow_back_ios),
