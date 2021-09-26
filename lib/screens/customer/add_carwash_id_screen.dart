@@ -27,7 +27,9 @@ class _SearchCarwashIdPageState extends State<AddCarwashIdScreen> {
         onSignOut: () {},
         imageURL:
             "https://i.insider.com/5cdedc95021b4c12a50f46f6?width=1136&format=jpeg",
+        
       ),
+      
       resizeToAvoidBottomInset: false,
       body: Column(
         children: [
