@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:washout/Widgets/general/custom_appbar.dart';
 import 'package:washout/Widgets/general/custom_drawer.dart';
+import 'package:washout/screens/customer/choose_car_screen.dart';
 import 'package:washout/widgets/general/checkbox_option.dart';
 import 'package:washout/widgets/general/custom_back_button.dart';
 
@@ -15,42 +16,40 @@ const _dummy = [
   },
 ];
 
+class ServiceCustomerScreen extends StatefulWidget {
+  static const routeName = "/serviceCustomer";
 
-
-class ServiceCustomer extends StatefulWidget {
-
-
-  const ServiceCustomer({Key? key}) : super(key: key);
+  const ServiceCustomerScreen({Key? key}) : super(key: key);
   @override
-  _ServiceCustomerState createState() => _ServiceCustomerState();
+  _ServiceCustomerScreenState createState() => _ServiceCustomerScreenState();
 }
 
-class _ServiceCustomerState extends State<ServiceCustomer> {
+class _ServiceCustomerScreenState extends State<ServiceCustomerScreen> {
   List<Map<String, dynamic>> _data = _dummy;
   final List<int> _selectedOptions = [];
 
-  void _onSelect(int index){
+  void _onSelect(int index) {
     setState(() {
-      if(_selectedOptions.contains(index)){
+      if (_selectedOptions.contains(index)) {
         _selectedOptions.remove(index);
-      }else{
+      } else {
         _selectedOptions.add(index);
       }
     });
   }
 
-  int _calculatePrice(){
+  int _calculatePrice() {
     var sum = 0;
-    for(int i in _selectedOptions){
+    for (int i in _selectedOptions) {
       sum += _data[i]["price"] as int;
     }
 
     return sum;
   }
 
-  Widget _buildOptionList(){
+  Widget _buildOptionList() {
     var items = <Widget>[];
-    for(int i = 0; i < _data.length; i++){
+    for (int i = 0; i < _data.length; i++) {
       items.add(
         Padding(
           padding: EdgeInsets.all(20),
@@ -156,7 +155,8 @@ class _ServiceCustomerState extends State<ServiceCustomer> {
                     children: [
                       ElevatedButton(
                         onPressed: () {
-
+                          Navigator.of(context)
+                              .pushNamed(ChooseCarScreen.routeName);
                         },
                         child: Text(
                           "Confirm",

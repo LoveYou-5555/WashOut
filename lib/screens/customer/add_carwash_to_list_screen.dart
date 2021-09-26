@@ -6,6 +6,7 @@ import 'package:washout/widgets/general/custom_back_button.dart';
 import 'package:washout/widgets/general/custom_drawer.dart';
 
 class AddCarwashToListScreen extends StatefulWidget {
+  static const routeName = "/addCarwashList";
   const AddCarwashToListScreen({Key? key}) : super(key: key);
 
   @override

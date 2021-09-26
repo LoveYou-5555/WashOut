@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:washout/Widgets/general/custom_appbar.dart';
 import 'package:washout/configs/app_color.dart';
 import 'package:washout/configs/asset_paths.dart';
+import 'package:washout/screens/customer/add_carwash_id_screen.dart';
+import 'package:washout/screens/customer/queue_screen.dart';
+import 'package:washout/screens/general/app_entry.dart';
 import 'package:washout/widgets/general/carwash_card.dart';
 import 'package:washout/widgets/general/custom_back_button.dart';
 import 'package:washout/widgets/general/custom_drawer.dart';
@@ -124,7 +127,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: AppColor.customerPrimary,
                 size: 50,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed(
+                  AddCarwashIdScreen.routeName);
+              },
               text: "Add carwash",
             ),
             SizedBox(
@@ -140,7 +146,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         id: _dummy[index]["id"] ?? "",
                         imageUrl: _dummy[index]["imageURL"] ?? "",
                         name: _dummy[index]["name"] ?? "",
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pushNamed(QueueScreen.routeName);
+                        },
                       ),
                       if (index != _dummy.length - 1)
                         SizedBox(

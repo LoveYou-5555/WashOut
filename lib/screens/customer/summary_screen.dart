@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:washout/Widgets/general/custom_appbar.dart';
 import 'package:washout/Widgets/general/custom_drawer.dart';
+import 'package:washout/screens/customer/home_screen.dart';
+import 'package:washout/screens/customer/queue_screen.dart';
 import 'package:washout/widgets/general/carwash_card.dart';
 import 'package:washout/widgets/general/custom_back_button.dart';
 import 'package:washout/widgets/general/custom_button.dart';
@@ -8,6 +10,7 @@ import 'package:washout/widgets/general/summary_detail.dart';
 import 'package:washout/widgets/general/summary_header.dart';
 
 class SummaryScreen extends StatelessWidget {
+  static const routeName = "/summary";
   const SummaryScreen({Key? key}) : super(key: key);
   Widget _buildHeader({String text = "", String tailingText = ""}) {
     return Padding(
@@ -131,7 +134,9 @@ class SummaryScreen extends StatelessWidget {
               ),
             ),
             CustomButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed(QueueScreen.routeName);
+              },
               text: "Close",
               color: Colors.grey,
             ),

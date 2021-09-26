@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:washout/screens/customer/service_customer.dart';
 import 'package:washout/widgets/general/carwash_card.dart';
 import 'package:washout/widgets/general/custom_appbar.dart';
 import 'package:washout/widgets/general/custom_back_button.dart';
@@ -9,6 +10,7 @@ import 'package:washout/widgets/general/custom_drawer.dart';
 import 'package:washout/widgets/general/queue_status_ticket.dart';
 
 class QueueScreen extends StatefulWidget {
+  static const routeName = "/queue";
   const QueueScreen({Key? key}) : super(key: key);
 
   @override
@@ -16,7 +18,7 @@ class QueueScreen extends StatefulWidget {
 }
 
 class _QueueScreenState extends State<QueueScreen> {
-  bool _isOnService = true;
+  bool _isOnService = false;
 
   Widget _buildUserStatusTicket() {
     return SizedBox(
@@ -181,7 +183,10 @@ class _QueueScreenState extends State<QueueScreen> {
                     SizedBox(
                       width: 200,
                       child: CustomButton(
-                        onPressed: () {},
+                        onPressed: () {
+                        Navigator.of(context).pushNamed(ServiceCustomerScreen.routeName);
+
+                        },
                         text: "Use Service",
                       ),
                     ),

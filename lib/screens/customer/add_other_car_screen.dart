@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:washout/Widgets/general/custom_appbar.dart';
 import 'package:washout/Widgets/general/custom_drawer.dart';
+import 'package:washout/screens/customer/summary_pre_screen.dart';
 import 'package:washout/widgets/general/custom_back_button.dart';
 import 'package:washout/widgets/general/custom_button.dart';
 import 'package:washout/widgets/general/custom_dropdown.dart';
 import 'package:washout/widgets/general/custom_text_field.dart';
 
 class AddOtherCarScreen extends StatefulWidget {
+  static const routeName = "/addOtherCar";
   const AddOtherCarScreen({Key? key}) : super(key: key);
 
   @override
@@ -151,17 +153,9 @@ class _AddOtherCarScreenState extends State<AddOtherCarScreen> {
                     children: [
                       Expanded(
                         child: CustomButton(
-                          onPressed: () {},
-                          text: "Cancel",
-                          color: Colors.red,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 20.0,
-                      ),
-                      Expanded(
-                        child: CustomButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.of(context).pushNamed(SummaryPreScreen.routeName);
+                            },
                             text: "Confirm",
                             color: Colors.green),
                       ),
