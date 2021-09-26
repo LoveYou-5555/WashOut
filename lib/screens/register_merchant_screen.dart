@@ -50,7 +50,7 @@ class _RegisterMerchantScreenState extends State<RegisterMerchantScreen> {
         children: [
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(30.0),
+              padding: const EdgeInsets.all(10.0),
               child: Container(
                 child: Form(
                   key: formKey,
@@ -63,22 +63,42 @@ class _RegisterMerchantScreenState extends State<RegisterMerchantScreen> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 15),
+                      SizedBox(height: 1.5),
                       TextFormField(
                         validator: (txt) => "กรุณาใส่ชื่อด้วยครับ",
                         decoration: InputDecoration(labelText: 'Name'),
                       ),
-                      SizedBox(height: 5),
+                      SizedBox(height: 1.5),
                       TextFormField(
                         validator: (txt) => "กรุณาใส่นามสกุลด้วยครับ",
-                        decoration: InputDecoration(labelText: 'LastName'),
+                        decoration: InputDecoration(labelText: 'ชื่อ'),
                       ),
-                      SizedBox(height: 5),
+                      SizedBox(height: 1.5),
                       TextFormField(
                         validator: (txt) => "กรุณาใส่เลขบัตรประชาชนด้วยครับ",
                         decoration: InputDecoration(labelText: 'Idcard'),
                       ),
-                      SizedBox(height: 5),
+                      SizedBox(height: 1.5),
+                      TextFormField(
+                        validator: (txt) => "กรุณาใส่เลขบัตรประชาชนด้วยครับ",
+                        decoration: InputDecoration(labelText: 'จังหวัด'),
+                      ),
+                      SizedBox(height: 1.5),
+                      TextFormField(
+                        validator: (txt) => "กรุณาใส่เลขบัตรประชาชนด้วยครับ",
+                        decoration: InputDecoration(labelText: 'อำเถอ'),
+                      ),
+                      SizedBox(height: 1.5),
+                      TextFormField(
+                        decoration: InputDecoration(labelText: 'ถนน'),
+                      ),
+                      SizedBox(height: 1.25),
+                      TextFormField(
+                        validator: (txt) => "กรุณาใส่เลขบัตรประชาชนด้วยครับ",
+                        decoration:
+                            InputDecoration(labelText: 'หมายเลขโทรศัพท์'),
+                      ),
+                      SizedBox(height: 1),
                       TextFormField(
                         // validator: MultiValidator(
                         //   [
@@ -93,7 +113,7 @@ class _RegisterMerchantScreenState extends State<RegisterMerchantScreen> {
                         //   profile.email = email;
                         // },
                       ),
-                      Container(height: 5),
+                      Container(height: 1),
                       TextFormField(
                         // validator: RequiredValidator(
                         //     errorText: "กรุณาใส่ password ครับ"),
@@ -104,7 +124,7 @@ class _RegisterMerchantScreenState extends State<RegisterMerchantScreen> {
                         decoration: InputDecoration(
                             labelText: 'Password(6-20 characters)'),
                       ),
-                      SizedBox(height: 5),
+                      SizedBox(height: 1),
                       Center(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -151,7 +171,7 @@ class _RegisterMerchantScreenState extends State<RegisterMerchantScreen> {
                           ],
                         ),
                       ),
-                      Container(height: 5),
+                      Container(height: 1),
                       Row(
                         children: [
                           Expanded(
@@ -167,7 +187,7 @@ class _RegisterMerchantScreenState extends State<RegisterMerchantScreen> {
                           ),
                         ],
                       ),
-                      Container(height: 5),
+                      Container(height: 1),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
