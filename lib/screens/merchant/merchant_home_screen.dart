@@ -18,7 +18,7 @@ class _MerchantHomeScreenState extends State<MerchantHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xFFEFEAEA),
       appBar: CustomAppBar(
         isMerchant: true,
         iconColor: AppColor.merchantPrimary,
