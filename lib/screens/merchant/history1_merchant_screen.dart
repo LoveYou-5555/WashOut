@@ -108,93 +108,225 @@ class _HistoryMerchantScreenState extends State<HistoryMerchantScreen> {
             Container(
               height: 20,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.all(10.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Row(children: [
+            TextButton(
+              onPressed: () {},
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.all(10.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Row(children: [
+                                  Text(
+                                    '# 1',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold, color: Colors.black),
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.green,
+                                        borderRadius: BorderRadius.circular(5)),
+                                    width: 60,
+                                    height: 20,
+                                    child: Center(
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            'เสร็จสิ้น',
+                                            style: TextStyle(
+                                              fontSize: 13,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                ]),
+                                SizedBox(
+                                  height: 5,
+                                ),
                                 Text(
-                                  '# 1',
+                                  'ว่องไว ไกลสุดฟ้า',
                                   style: TextStyle(
-                                      fontSize: 20, fontWeight: FontWeight.bold),
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
                                 ),
                                 SizedBox(
-                                  width: 5,
+                                  height: 10,
                                 ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.green,
-                                      borderRadius: BorderRadius.circular(5)),
-                                  width: 60,
-                                  height: 20,
-                                  child: Center(
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          'เสร็จสิ้น',
-                                          style: TextStyle(
-                                            fontSize: 13,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ],
+                              ],
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'เมื่อเวลา',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,color: Colors.black),
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      "14.30",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                        color: Colors.black,
+                                      ),
                                     ),
-                                  ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      "PM",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ],
                                 )
-                              ]),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                'ว่องไว ไกลสุดฟ้า',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                            ],
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('เมื่อเวลา',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
-                              Row(
-                                children: [
-                                  Text("14.30" ,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,),),
-                                  SizedBox(width: 10,),
-                                  Text("PM",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,),),
-                                ],
-                              )
-                            ],
-                          )
-                        ],
+                              ],
+                            )
+                          ],
+                        ),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10)),
                       ),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10)),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             Container(
               height: 15,
             ),
-          ],
+            TextButton(
+              onPressed: () {},
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.all(10.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Row(children: [
+                                  Text(
+                                    '# 2',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold, color: Colors.black),
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.green,
+                                        borderRadius: BorderRadius.circular(5)),
+                                    width: 60,
+                                    height: 20,
+                                    child: Center(
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            'เสร็จสิ้น',
+                                            style: TextStyle(
+                                              fontSize: 13,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                ]),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  'ริชชี่ มีหินแสง',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                              ],
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'เมื่อเวลา',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,color: Colors.black),
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      "15.15",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      "PM",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10)),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),          ],
         ),
       ),
     );

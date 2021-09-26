@@ -191,16 +191,54 @@ class _AddServiceMerchantScreenState extends State<AddServiceMerchantScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [                       
-                        CustomButton(
-                          onPressed: () {},
-                          text:'Cancel',
-                          color: Colors.red,
-                        ),
-                        CustomButton(
-                            onPressed: () {},
-                            text:'Submit',
-                            color: Colors.green[300],
-                          ),
+TextButton(
+                                      onPressed: () {},
+                                      child: Container(
+                                        height: 40,
+                                        width: 100,
+                                        color: Colors.red,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.cancel,
+                                              color: Colors.white,
+                                            ),
+                                            SizedBox(width: 5,),
+                                            Text(
+                                              'ยกเลิก',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+TextButton(
+                                      onPressed: () {},
+                                      child: Container(
+                                        height: 40,
+                                        width: 100,
+                                        color: Colors.green,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.check_circle,
+                                              color: Colors.white,
+                                            ),
+                                            SizedBox(width: 5,),
+                                            Text(
+                                              'ตกลง',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
                       ],
                     ),
                   ],
