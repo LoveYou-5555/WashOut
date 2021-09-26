@@ -3,8 +3,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:washout/Widgets/general/custom_appbar.dart';
+import 'package:washout/configs/app_color.dart';
 import 'package:washout/screens/book_screen.dart';
-import 'package:washout/screens/merchant/history_screen.dart';
+import 'package:washout/screens/merchant/history2_screen.dart';
+
 import 'package:washout/screens/merchant/manage_queue_screen.dart';
 
 class MerchantHomeScreen extends StatefulWidget {
