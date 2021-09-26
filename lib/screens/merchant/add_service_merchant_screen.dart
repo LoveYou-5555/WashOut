@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:washout/Widgets/general/custom_appbar.dart';
+import 'package:washout/Widgets/general/custom_button.dart';
 import 'package:washout/Widgets/general/custom_drawer.dart';
 import 'package:washout/configs/app_color.dart';
 import 'package:washout/screens/general/app_entry.dart';
@@ -22,6 +23,7 @@ class _AddServiceMerchantScreenState extends State<AddServiceMerchantScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       backgroundColor: Color(0xFFEFEAEA),
       appBar: CustomAppBar(
         isMerchant: true,
@@ -37,34 +39,35 @@ class _AddServiceMerchantScreenState extends State<AddServiceMerchantScreen> {
               .pushNamedAndRemoveUntil(AppEntry.routeName, (route) => false);
         },
       ),
-      body: Column(
-        children: [
-          TextButton(
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return ServiceMerchantScreen();
-              }));
-            },
-            child: Row(
-              children: [
-                Icon(
-                  Icons.arrow_back_ios,
-                  color: AppColor.merchantPrimary,
-                ),
-                Text(
-                  'ย้อนกลับ',
-                  style: TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.bold),
-                )
-              ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            TextButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return ServiceMerchantScreen();
+                }));
+              },
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.arrow_back_ios,
+                    color: AppColor.merchantPrimary,
+                  ),
+                  Text(
+                    'ย้อนกลับ',
+                    style: TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.bold),
+                  )
+                ],
+              ),
             ),
-          ),
-          Container(
-            height: 20,
-          ),
-          Expanded(
-            flex: 771,
-            child: Padding(
+            Container(
+              height: 20,
+            ),
+            Text('Add Service',style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),),
+            Container(height: 20,),
+            Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30.0),
               child: Container(
                 child: Column(
@@ -79,41 +82,68 @@ class _AddServiceMerchantScreenState extends State<AddServiceMerchantScreen> {
                     Container(
                       height: 20,
                     ),
-                    DropdownButton(
-                      iconEnabledColor: Colors.red,
-                      iconSize: 40,
-                      dropdownColor: Colors.white,
-                      value: dropdownvalue,
-                      icon: Icon(Icons.keyboard_arrow_down),
-                      items: items.map(
-                        (String items) {
-                          return DropdownMenuItem(
-                            value: items,
-                            child: Text(items),
-                          );
-                        },
-                      ).toList(),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          if (newValue == null) {
-                          } else {
-                            dropdownvalue = newValue;
-                          }
-                        });
-                      },
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            padding: EdgeInsets.only(left: 20),
+                            child: DropdownButton(
+                              isExpanded: true,
+                              iconEnabledColor: Colors.red,
+                              iconSize: 40,
+                              dropdownColor: Colors.white,
+                              value: dropdownvalue,
+                              icon: Icon(Icons.keyboard_arrow_down),
+                              items: items.map(
+                                (String items) {
+                                  return DropdownMenuItem(
+                                    value: items,
+                                    child: Text(items),
+                                  );
+                                },
+                              ).toList(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  if (newValue == null) {
+                                  } else {
+                                    dropdownvalue = newValue;
+                                  }
+                                });
+                              },
+                              
+                            ),
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
                     ),
                     Container(
                       height: 10,
                     ),
-                    Container(
-                      child: TextField(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: 'บริการอื่นๆ',
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Expanded(
+                                  child: TextField(
+                                    decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: 'บริการอื่นๆ',
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            color: Colors.white,
+                            height: 60,
+                          ),
                         ),
-                      ),
-                      color: Colors.white,
-                      height: 60,
+                      ],
                     ),
                     Container(
                       height: 20,
@@ -157,12 +187,28 @@ class _AddServiceMerchantScreenState extends State<AddServiceMerchantScreen> {
                         ),
                       ],
                     ),
+                    Container(height: 90,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [                       
+                        CustomButton(
+                          onPressed: () {},
+                          text:'Cancel',
+                          color: Colors.red,
+                        ),
+                        CustomButton(
+                            onPressed: () {},
+                            text:'Submit',
+                            color: Colors.green[300],
+                          ),
+                      ],
+                    ),
                   ],
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

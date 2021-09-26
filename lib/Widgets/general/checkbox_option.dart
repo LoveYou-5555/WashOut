@@ -29,7 +29,7 @@ class CheckboxItem extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(12),
         height: 50,
-        decoration: BoxDecoration(
+        decoration: BoxDecoration( 
           color: backgroundColor,
           borderRadius: BorderRadius.circular(12),
         ),

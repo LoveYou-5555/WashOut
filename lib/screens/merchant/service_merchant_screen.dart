@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:washout/Widgets/general/checkbox_option.dart';
 import 'package:washout/Widgets/general/custom_appbar.dart';
 import 'package:washout/Widgets/general/custom_button.dart';
 import 'package:washout/Widgets/general/custom_drawer.dart';
@@ -65,54 +66,72 @@ class _ServiceMerchantScreenState extends State<ServiceMerchantScreen> {
               child: Container(
                 child: Column(
                   children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.fiber_manual_record,
-                                  color: Colors.green[400],
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text('ล้างรถ'),
-                                Spacer(),
-                                Text('฿ 200'),
-                              ],
-                            ),
-                            color: Colors.white,
-                            padding: EdgeInsets.all(20),
-                          ),
-                        ),
-                      ],
+                    // Row(
+                    //   children: [
+                    //     Expanded(
+                    //       child: Container(
+                    //         child: Row(
+                    //           children: [
+                    //             Icon(
+                    //               Icons.fiber_manual_record,
+                    //               color: Colors.green[400],
+                    //             ),
+                    //             SizedBox(
+                    //               width: 10,
+                    //             ),
+                    //             Text('ล้างรถ'),
+                    //             Spacer(),
+                    //             Text('฿ 200'),
+                    //           ],
+                    //         ),
+                    //         color: Colors.white,
+                    //         padding: EdgeInsets.all(20),
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+                    CheckboxItem(
+                      text: 'ล้างรถ',
+                      onTap: () {},
+                      checked: true,
+                      backgroundColor: Colors.white,
+                      checkedColor: Colors.green,
+                      uncheckedColor: Colors.grey,
+                      tailingText: '฿ 200',
                     ),
                     Container(height: 15),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.fiber_manual_record,
-                                  color: Colors.grey,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text('ขัดสี'),
-                                Spacer(),
-                                Text('฿ 900'),
-                              ],
-                            ),
-                            color: Colors.white,
-                            padding: EdgeInsets.all(20),
-                          ),
-                        ),
-                      ],
+                    // Row(
+                    //   children: [
+                    //     Expanded(
+                    //       child: Container(
+                    //         child: Row(
+                    //           children: [
+                    //             Icon(
+                    //               Icons.fiber_manual_record,
+                    //               color: Colors.grey,
+                    //             ),
+                    //             SizedBox(
+                    //               width: 10,
+                    //             ),
+                    //             Text('ขัดสี'),
+                    //             Spacer(),
+                    //             Text('฿ 900'),
+                    //           ],
+                    //         ),
+                    //         color: Colors.white,
+                    //         padding: EdgeInsets.all(20),
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+                    CheckboxItem(
+                      text: 'ขัดสี',
+                      onTap: () {},
+                      checked: true,
+                      backgroundColor: Colors.white,
+                      checkedColor: Colors.green,
+                      uncheckedColor: Colors.grey,
+                      tailingText: '฿ 900',
                     ),
                     Container(
                       height: 20,
