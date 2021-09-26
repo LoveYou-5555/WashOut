@@ -1,12 +1,15 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:washout/screens/customer/add_carwash_to_list_screen.dart';
 import 'package:washout/widgets/general/custom_appbar.dart';
 import 'package:washout/widgets/general/custom_back_button.dart';
 import 'package:washout/widgets/general/custom_button.dart';
 import 'package:washout/widgets/general/custom_drawer.dart';
 
 class AddCarwashIdScreen extends StatefulWidget {
+  static const routeName = "/addCarwashId";
+
   const AddCarwashIdScreen({Key? key}) : super(key: key);
 
   @override
@@ -27,15 +30,15 @@ class _SearchCarwashIdPageState extends State<AddCarwashIdScreen> {
         onSignOut: () {},
         imageURL:
             "https://i.insider.com/5cdedc95021b4c12a50f46f6?width=1136&format=jpeg",
-        
       ),
-      
       resizeToAvoidBottomInset: false,
       body: Column(
         children: [
           CustomBackButton(
             text: "Back",
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
           ),
           Container(
             height: 50,
@@ -62,7 +65,13 @@ class _SearchCarwashIdPageState extends State<AddCarwashIdScreen> {
                     ),
                   ),
                   Container(height: 30),
-                  CustomButton(onPressed: (){}, text: "Search",),
+                  CustomButton(
+                    onPressed: () {
+                      Navigator.of(context)
+                          .pushNamed(AddCarwashToListScreen.routeName);
+                    },
+                    text: "Search",
+                  ),
                 ],
               ),
             ),

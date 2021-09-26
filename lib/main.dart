@@ -13,9 +13,9 @@ import 'package:washout/screens/search_carwash_screen.dart';
 
 void main() => runApp(
       MaterialApp(
-        home: ManageQueueScreen(),
-        // initialRoute: AppEntry.routeName,
+        
+        initialRoute: AppEntry.routeName,
         debugShowCheckedModeBanner: false,
-        // routes: routes,
+        routes: routes,
       ),
     );

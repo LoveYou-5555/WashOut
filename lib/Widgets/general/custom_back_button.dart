@@ -15,7 +15,9 @@ class CustomBackButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: onPressed,
+      onPressed: (){
+        Navigator.of(context).pop();
+      },
       child: Row(
         children: [
           Icon(

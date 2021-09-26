@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:washout/Widgets/general/custom_appbar.dart';
 import 'package:washout/Widgets/general/custom_drawer.dart';
+import 'package:washout/screens/customer/summary_screen.dart';
 import 'package:washout/widgets/general/custom_back_button.dart';
 import 'package:washout/widgets/general/custom_button.dart';
 import 'package:washout/widgets/general/summary_detail.dart';
 import 'package:washout/widgets/general/summary_header.dart';
 
+import 'choose_car_screen.dart';
+
 class SummaryPreScreen extends StatelessWidget {
+  static const routeName = "/summaryPre";
   const SummaryPreScreen({Key? key}) : super(key: key);
 
   @override
@@ -110,20 +114,12 @@ class SummaryPreScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: CustomButton(
-                    onPressed: () {},
-                    text: "Cancel",
-                    color: Colors.red,
-                  ),
-                ),
-                SizedBox(
-                  width: 20.0,
-                ),
-                Expanded(
-                  child: CustomButton(
-                    onPressed: () {},
-                    text: "Confirm",
-                    color: Colors.green
-                  ),
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushNamed(SummaryScreen.routeName);
+                      },
+                      text: "Confirm",
+                      color: Colors.green),
                 ),
               ],
             ),

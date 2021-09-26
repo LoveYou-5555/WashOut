@@ -2,6 +2,7 @@
 // https://i.insider.com/5cdedc95021b4c12a50f46f6?width=1136&format=jpeg
 
 import 'package:flutter/material.dart';
+import 'package:washout/screens/general/app_entry.dart';
 
 class CustomDrawer extends StatelessWidget {
   final String accountName;
@@ -21,7 +22,12 @@ class CustomDrawer extends StatelessWidget {
             child: const Text('Cancel'),
           ),
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                AppEntry.routeName,
+                (route) => false,
+              );
+            },
             child: const Text('OK'),
           ),
         ],

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:washout/Widgets/general/custom_appbar.dart';
 import 'package:washout/Widgets/general/custom_drawer.dart';
+import 'package:washout/screens/customer/add_other_car_screen.dart';
+import 'package:washout/screens/customer/summary_pre_screen.dart';
 import 'package:washout/widgets/general/carwash_card.dart';
 import 'package:washout/widgets/general/checkbox_option.dart';
 import 'package:washout/widgets/general/custom_back_button.dart';
@@ -20,6 +22,7 @@ const _dummy = [
 ];
 
 class ChooseCarScreen extends StatefulWidget {
+  static const routeName = "/chooseCar";
   const ChooseCarScreen({Key? key}) : super(key: key);
 
   @override
@@ -91,7 +94,9 @@ class _ChooseCarScreenState extends State<ChooseCarScreen> {
               children: [
                 Expanded(
                   child: CustomButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(AddOtherCarScreen.routeName);
+                    },
                     text: "Another car",
                   ),
                 ),
@@ -100,7 +105,9 @@ class _ChooseCarScreenState extends State<ChooseCarScreen> {
                 ),
                 Expanded(
                   child: CustomButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(SummaryPreScreen.routeName);
+                    },
                     text: "Confirm",
                   ),
                 ),
