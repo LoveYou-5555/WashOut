@@ -223,7 +223,7 @@ class _ManageQueueScreenState extends State<ManageQueueScreen> {
                                       ],
                                     ),
                                     SizedBox(
-                                      height: 15,
+                                      height: 60,
                                     ),
                                     Text(
                                       'ส่วนลด',
@@ -236,20 +236,37 @@ class _ManageQueueScreenState extends State<ManageQueueScreen> {
                                       height: 5,
                                     ),
                                     Text(
-                                      '200 Bath',
+                                      ' 200บ.',
                                       style: TextStyle(
                                         fontSize: 25,
                                         color: Colors.black,
                                       ),
                                     ),
-                                    Row(
-                                      children: [
-                                        CustomButton(
-                                          onPressed: () {},
-                                          text: 'Cancel',
-                                          color: Colors.red,
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    TextButton(
+                                      onPressed: () {},
+                                      child: Container(
+                                        height: 40,
+                                        width: 100,
+                                        color: Colors.red,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.cancel,
+                                              color: Colors.white,
+                                            ),
+                                            Text(
+                                              'ยกเลิก',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            )
+                                          ],
                                         ),
-                                      ],
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -286,28 +303,51 @@ class _ManageQueueScreenState extends State<ManageQueueScreen> {
                                         Text("สี")
                                       ],
                                     ),
+                                    SizedBox(
+                                      height: 60,
+                                    ),
                                     Text(
-                                      'ราคา',
+                                      'สรุปราคา',
                                       style: TextStyle(
                                         fontSize: 23,
                                         color: Colors.black,
                                       ),
                                     ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
                                     Text(
-                                      '300บ.',
+                                      '    300บ.',
                                       style: TextStyle(
                                         fontSize: 23,
                                         color: Colors.black,
                                       ),
                                     ),
-                                    Row(
-                                      children: [
-                                        CustomButton(
-                                          onPressed: () {},
-                                          text: 'ดำเนินการ',
-                                          color: Colors.yellow[700],
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    TextButton(
+                                      onPressed: () {},
+                                      child: Container(
+                                        height: 40,
+                                        width: 100,
+                                        color: Colors.yellow[700],
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.download_for_offline,
+                                              color: Colors.white,
+                                            ),
+                                            Text(
+                                              'ดำเนินการ',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            )
+                                          ],
                                         ),
-                                      ],
+                                      ),
                                     ),
                                   ],
                                 ),
