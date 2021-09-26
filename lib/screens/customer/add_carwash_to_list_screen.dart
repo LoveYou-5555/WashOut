@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:washout/widgets/general/custom_appbar.dart';
+import 'package:washout/widgets/general/custom_back_button.dart';
+import 'package:washout/widgets/general/custom_drawer.dart';
 
 class AddCarwashToListScreen extends StatefulWidget {
   const AddCarwashToListScreen({Key? key}) : super(key: key);
@@ -14,49 +17,22 @@ class _AddCarwashToListScreenState extends State<AddCarwashToListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.blue),
-        actions: [
-          Image.asset(
-            "assets/logo_1.png",
-            height: 51.0,
-            width: 125.0,
-          ),
-        ],
-        toolbarHeight: 90,
-        backgroundColor: Colors.grey[200],
-        shadowColor: Colors.white,
+      appBar: CustomAppBar(
+        isMerchant: false,
       ),
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            UserAccountsDrawerHeader(
-              accountName: Text('AAA'),
-              accountEmail: Text('haha@gmail.com'),
-              currentAccountPicture: CircleAvatar(
-                backgroundImage: NetworkImage('url'),
-              ),
-            )
-          ],
-        ),
+      drawer: CustomDrawer(
+        accountEmail: "mail@mail.com",
+        accountName: "Bob Simmons",
+        onSignOut: () {},
+        imageURL:
+            "https://i.insider.com/5cdedc95021b4c12a50f46f6?width=1136&format=jpeg",
       ),
       resizeToAvoidBottomInset: false,
       body: Column(
         children: [
-          TextButton(
-            onPressed: () {
-            
-            },
-            child: Row(
-              children: [
-                Icon(Icons.arrow_back_ios),
-                Text(
-                  'Back',
-                  style: TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.bold),
-                )
-              ],
-            ),
+          CustomBackButton(
+            onPressed: () {},
+            text: "Back",
           ),
           Container(
             height: 50,
@@ -67,35 +43,18 @@ class _AddCarwashToListScreenState extends State<AddCarwashToListScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 30.0),
               child: Column(
                 children: [
-                  // Row(
-                  //   children: [
-                  //     Text('Car Wash ID',
-                  //         style: TextStyle(
-                  //             fontSize: 35.0, fontWeight: FontWeight.bold)),
-                  //   ],
-                  // ),
-                  // Container(height: 35),
-                  // TextField(
-                  //   decoration: InputDecoration(
-                  //     border: OutlineInputBorder(),
-                  //     hintText: 'Insert car wash id',
-                  //   ),
-                  // ),
-                  // Container(height: 30),
-                  SizedBox(
-                    child: Image.asset('assets/face.png'),
-                    height: 200,
-                    width: 200,
+                  CircleAvatar(
+                    radius: 60,
+                    backgroundImage: NetworkImage(
+                      "https://i.insider.com/5cdedc95021b4c12a50f46f6?width=1136&format=jpeg",
+                    ),
                   ),
-
+                  SizedBox(height: 20,),
                   Text(
                     'ABC CAR CARE',
                     style: TextStyle(
-                        height: 1,
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold),
+                        height: 1, fontSize: 25, fontWeight: FontWeight.bold),
                   ),
-
                   SizedBox(
                     child: Text(
                       'ID : 123456',

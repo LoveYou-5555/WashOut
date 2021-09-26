@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 
 class CarwashCard extends StatelessWidget {
-  const CarwashCard(
-      {Key? key,
-      required this.id,
-      required this.name,
-      required this.imageUrl,
-      required this.onPressed})
-      : super(key: key);
+  const CarwashCard({
+    Key? key,
+    required this.id,
+    required this.name,
+    required this.imageUrl,
+    required this.onPressed,
+    this.showBorder = true,
+
+  }) : super(key: key);
 
   final String id;
   final String name;
   final String imageUrl;
+  final bool showBorder;
 
   final void Function() onPressed;
 
@@ -23,10 +26,10 @@ class CarwashCard extends StatelessWidget {
         width: 300,
         height: 100,
         decoration: BoxDecoration(
-          border: Border.all(
+          border: showBorder ? Border.all(
             color: Colors.black,
             width: 1,
-          ),
+          ) : null,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Row(
