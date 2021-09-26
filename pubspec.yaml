@@ -64,10 +64,11 @@ flutter:
     - assets/logo_merchant.png
     - assets/backbutton.png
     - assets/addcarwash.png
-
+    - assets/wrench_logo.png
     - assets/backbuttonm1.png
     - assets/backbuttonm2.png
     - assets/logom_2.png
+    - assets/washout_logo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
