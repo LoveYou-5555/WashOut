@@ -10,7 +10,23 @@ import 'package:washout/widgets/general/custom_button.dart';
 class RegisterScreen extends StatefulWidget {
   static const routeName = "/registerCustomer";
 
-  const RegisterScreen({Key? key}) : super(key: key);
+  final void Function()? onSignUp;
+  final void Function()? onToSignIn;
+
+  final TextEditingController emailCont;
+  final TextEditingController passCont;
+  final TextEditingController nameCont;
+  final TextEditingController lnCont;
+
+  const RegisterScreen({
+    Key? key,
+    this.onSignUp,
+    this.onToSignIn,
+    required this.emailCont,
+    required this.passCont,
+    required this.nameCont,
+    required this.lnCont,
+  }) : super(key: key);
 
   @override
   _RegisterScreenState createState() => _RegisterScreenState();
@@ -64,21 +80,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       SizedBox(height: 15),
                       TextFormField(
+                        controller: widget.nameCont,
                         validator: (txt) => "กรุณาใส่ชื่อด้วยครับ",
                         decoration: InputDecoration(labelText: 'Name'),
                       ),
                       SizedBox(height: 5),
                       TextFormField(
+                        controller: widget.lnCont,
                         validator: (txt) => "กรุณาใส่นามสกุลด้วยครับ",
                         decoration: InputDecoration(labelText: 'LastName'),
                       ),
+                      // SizedBox(height: 5),
+                      // TextFormField(
+                      //   validator: (txt) => "กรุณาใส่เลขบัตรประชาชนด้วยครับ",
+                      //   decoration: InputDecoration(labelText: 'Idcard'),
+                      // ),
                       SizedBox(height: 5),
                       TextFormField(
-                        validator: (txt) => "กรุณาใส่เลขบัตรประชาชนด้วยครับ",
-                        decoration: InputDecoration(labelText: 'Idcard'),
-                      ),
-                      SizedBox(height: 5),
-                      TextFormField(
+                        controller: widget.emailCont,
                         // validator: MultiValidator(
                         //   [
                         //     RequiredValidator(
@@ -94,6 +113,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       Container(height: 5),
                       TextFormField(
+                        controller: widget.passCont,
                         // validator: RequiredValidator(
                         //     errorText: "กรุณาใส่ password ครับ"),
                         obscureText: true,
@@ -156,9 +176,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           Expanded(
                             child: CustomButton(
                               onPressed: () {
-                                Navigator.of(context).popUntil(
-                                  ModalRoute.withName(AppEntry.routeName),
-                                );
+                                widget.onSignUp!();
+                                // Navigator.of(context).popUntil(
+                                //   ModalRoute.withName(AppEntry.routeName),
+                                // );
                               },
                               color: AppColor.customerPrimary,
                               text: 'Create account',
@@ -176,9 +197,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                           TextButton(
                             onPressed: () {
-                              Navigator.of(context).popUntil(
-                                ModalRoute.withName(AppEntry.routeName),
-                              );
+                              widget.onToSignIn!();
+                              // Navigator.of(context).popUntil(
+                              //   ModalRoute.withName(AppEntry.routeName),
+                              // );
                             },
                             child: Text(
                               'Sign in',

@@ -3,20 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:washout/configs/app_color.dart';
 import 'package:washout/configs/sizes.dart';
 import 'package:washout/screens/customer/home_screen.dart';
-import 'package:washout/screens/register_screen.dart';
+import 'package:washout/screens/customer/register_screen.dart';
 import 'package:washout/widgets/general/custom_button.dart';
 import 'package:washout/widgets/general/login_screen_logo.dart';
 
 class LoginCustomerScreen extends StatelessWidget {
   final void Function() onModeSwitch;
+  final void Function() onLogin;
+  final void Function() onToSignUp;
+  final TextEditingController emailCont;
+  final TextEditingController passCont;
 
   LoginCustomerScreen({
     Key? key,
     required this.onModeSwitch,
+    required this.onLogin,
+    required this.onToSignUp,
+    required this.emailCont,
+    required this.passCont,
   }) : super(key: key);
-
-  final TextEditingController _emailField = TextEditingController();
-  final TextEditingController _passwordField = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -50,14 +55,14 @@ class LoginCustomerScreen extends StatelessWidget {
                       height: 17.0,
                     ),
                     TextField(
-                      controller: _emailField,
+                      controller: emailCont,
                       decoration: InputDecoration(labelText: 'E-mail'),
                     ),
                     SizedBox(
                       height: 13.0,
                     ),
                     TextField(
-                      controller: _passwordField,
+                      controller: passCont,
                       obscureText: true,
                       decoration: InputDecoration(
                         labelText: 'Password(6-20Characters)',
@@ -91,8 +96,9 @@ class LoginCustomerScreen extends StatelessWidget {
                           child: CustomButton(
                             color: AppColor.customerPrimary,
                             onPressed: () {
-                              Navigator.of(context).pushNamedAndRemoveUntil(
-                                  HomeScreen.routeName, (route) => false);
+                              onLogin();
+                              // Navigator.of(context).pushNamedAndRemoveUntil(
+                              //     HomeScreen.routeName, (route) => false);
                             },
                             text: 'Sign In',
                           ),
@@ -111,9 +117,10 @@ class LoginCustomerScreen extends StatelessWidget {
                         TextButton(
                           child: Text("Create account"),
                           onPressed: () {
-                            Navigator.of(context).pushNamed(
-                              RegisterScreen.routeName,
-                            );
+                            onToSignUp();
+                            // Navigator.of(context).pushNamed(
+                            //   RegisterScreen.routeName,
+                            // );
                           },
                         ),
                       ],
