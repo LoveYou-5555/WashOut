@@ -7,87 +7,13 @@ import 'package:washout/configs/asset_paths.dart';
 import 'package:washout/screens/customer/add_carwash_id_screen.dart';
 import 'package:washout/screens/customer/queue_screen.dart';
 import 'package:washout/screens/general/app_entry.dart';
+import 'package:washout/services/firebase_customer.dart';
 import 'package:washout/widgets/general/carwash_card.dart';
 import 'package:washout/widgets/general/custom_back_button.dart';
 import 'package:washout/widgets/general/custom_drawer.dart';
 import 'package:washout/widgets/general/text_button_with_icon.dart';
 
 // 'https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg'
-
-const _dummy = [
-  {
-    "id": "123456",
-    "name": "ABC Carwash",
-    "imageURL":
-        "https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg",
-  },
-  {
-    "id": "789102",
-    "name": "DEF Carwash",
-    "imageURL":
-        "https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg",
-  },
-  {
-    "id": "7eeeee2",
-    "name": "8min washer",
-    "imageURL":
-        "https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg",
-  },
-    {
-    "id": "123456",
-    "name": "ABC Carwash",
-    "imageURL":
-        "https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg",
-  },
-  {
-    "id": "789102",
-    "name": "DEF Carwash",
-    "imageURL":
-        "https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg",
-  },
-  {
-    "id": "7eeeee2",
-    "name": "8min washer",
-    "imageURL":
-        "https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg",
-  },
-    {
-    "id": "123456",
-    "name": "ABC Carwash",
-    "imageURL":
-        "https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg",
-  },
-  {
-    "id": "789102",
-    "name": "DEF Carwash",
-    "imageURL":
-        "https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg",
-  },
-  {
-    "id": "7eeeee2",
-    "name": "8min washer",
-    "imageURL":
-        "https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg",
-  },
-    {
-    "id": "123456",
-    "name": "ABC Carwash",
-    "imageURL":
-        "https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg",
-  },
-  {
-    "id": "789102",
-    "name": "DEF Carwash",
-    "imageURL":
-        "https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg",
-  },
-  {
-    "id": "7eeeee2",
-    "name": "8min washer",
-    "imageURL":
-        "https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg",
-  },
-];
 
 class HomeScreen extends StatefulWidget {
   static const routeName = "/homeScreen";
@@ -99,7 +25,21 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Map<String, dynamic>> _dataList = _dummy;
+  List<Map<String, dynamic>> _carwashList = [];
+
+  void _fetchCarwashes() async {
+    print("FETCH");
+    var data = await FirebaseCustomer.getCarwashList();
+    setState(() {
+      _carwashList = data;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchCarwashes();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -128,8 +68,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 size: 50,
               ),
               onPressed: () {
-                Navigator.of(context).pushNamed(
-                  AddCarwashIdScreen.routeName);
+                Navigator.of(context)
+                    .pushNamed(
+                      AddCarwashIdScreen.routeName,
+                    )
+                    .then((value) => _fetchCarwashes());
               },
               text: "Add carwash",
             ),
@@ -138,19 +81,20 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: _dummy.length,
+                itemCount: _carwashList.length,
                 itemBuilder: (context, index) {
                   return Column(
                     children: [
                       CarwashCard(
-                        id: _dummy[index]["id"] ?? "",
-                        imageUrl: _dummy[index]["imageURL"] ?? "",
-                        name: _dummy[index]["name"] ?? "",
+                        id: _carwashList[index]["merchant_id"] ?? "",
+                        imageUrl: _carwashList[index]["profile_url"],
+                        name: _carwashList[index]["name"] ?? "",
                         onPressed: () {
-                          Navigator.of(context).pushNamed(QueueScreen.routeName);
+                          Navigator.of(context)
+                              .pushNamed(QueueScreen.routeName);
                         },
                       ),
-                      if (index != _dummy.length - 1)
+                      if (index != _carwashList.length - 1)
                         SizedBox(
                           height: 20,
                         ),

@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:washout/screens/general/app_entry.dart';
+import 'package:washout/services/firebase_customer.dart';
 import 'package:washout/widgets/general/custom_appbar.dart';
 import 'package:washout/widgets/general/custom_back_button.dart';
 import 'package:washout/widgets/general/custom_drawer.dart';
@@ -14,8 +16,16 @@ class AddCarwashToListScreen extends StatefulWidget {
 }
 
 class _AddCarwashToListScreenState extends State<AddCarwashToListScreen> {
+  void _addMerchant(String merch_uid) async {
+    await FirebaseCustomer.addMerchantToList(merch_uid);
+    Navigator.popUntil(context, ModalRoute.withName(AppEntry.routeName));
+  }
+
   @override
   Widget build(BuildContext context) {
+    var data =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CustomAppBar(
@@ -47,18 +57,20 @@ class _AddCarwashToListScreenState extends State<AddCarwashToListScreen> {
                   CircleAvatar(
                     radius: 60,
                     backgroundImage: NetworkImage(
-                      "https://i.insider.com/5cdedc95021b4c12a50f46f6?width=1136&format=jpeg",
+                      data["profile_url"],
                     ),
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Text(
-                    'ABC CAR CARE',
+                    '${data["name"]}',
                     style: TextStyle(
                         height: 1, fontSize: 25, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
                     child: Text(
-                      'ID : 123456',
+                      'ID : ${data["merchant_id"]}',
                       style: TextStyle(
                           height: 1.5,
                           fontSize: 20,
@@ -66,20 +78,19 @@ class _AddCarwashToListScreenState extends State<AddCarwashToListScreen> {
                     ),
                     height: 50,
                   ),
-
                   ElevatedButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                        Navigator.pop(context);
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10.0, vertical: 15.0),
-                        child: Text(
-                          'ADD',
-                          style: TextStyle(fontSize: 20),
-                        ),
-                      ))
+                    onPressed: () {
+                      _addMerchant(data["uid"]);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10.0, vertical: 15.0),
+                      child: Text(
+                        'ADD',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),

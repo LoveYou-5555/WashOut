@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:washout/Widgets/general/custom_appbar.dart';
 import 'package:washout/configs/app_color.dart';
 import 'package:washout/screens/book_screen.dart';
+import 'package:washout/screens/merchant/history1_merchant_screen.dart';
 import 'package:washout/screens/merchant/history2_screen.dart';
 
 import 'package:washout/screens/merchant/manage_queue_screen.dart';
+import 'package:washout/screens/merchant/service_merchant_screen.dart';
 
 class MerchantHomeScreen extends StatefulWidget {
   const MerchantHomeScreen({Key? key}) : super(key: key);
@@ -90,7 +92,7 @@ class _MerchantHomeScreenState extends State<MerchantHomeScreen> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => BookScreen()));
+                                      builder: (context) => ServiceMerchantScreen()));
                             },
                             child: Center(
                               child: Column(
@@ -170,7 +172,7 @@ class _MerchantHomeScreenState extends State<MerchantHomeScreen> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => HistoryScreen()));
+                                      builder: (context) => HistoryMerchantScreen()));
                             },
                             child: Center(
                               child: Column(

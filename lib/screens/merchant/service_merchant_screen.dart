@@ -6,9 +6,12 @@ import 'package:washout/Widgets/general/custom_drawer.dart';
 import 'package:washout/configs/app_color.dart';
 import 'package:washout/screens/customer/home_screen.dart';
 import 'package:washout/screens/general/app_entry.dart';
+import 'package:washout/screens/merchant/add_service_merchant_screen.dart';
 import 'package:washout/screens/merchant/merchant_home_screen.dart';
 
 class ServiceMerchantScreen extends StatefulWidget {
+
+
   const ServiceMerchantScreen({Key? key}) : super(key: key);
 
   @override
@@ -149,7 +152,7 @@ class _ServiceMerchantScreenState extends State<ServiceMerchantScreen> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) {
-                                        return MerchantHomeScreen();
+                                        return AddServiceMerchantScreen();
                                       },
                                     ),
                                   );
