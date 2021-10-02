@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:washout/screens/customer/add_carwash_to_list_screen.dart';
+import 'package:washout/services/firebase_customer.dart';
 import 'package:washout/widgets/general/custom_appbar.dart';
 import 'package:washout/widgets/general/custom_back_button.dart';
 import 'package:washout/widgets/general/custom_button.dart';
@@ -13,10 +14,19 @@ class AddCarwashIdScreen extends StatefulWidget {
   const AddCarwashIdScreen({Key? key}) : super(key: key);
 
   @override
-  _SearchCarwashIdPageState createState() => _SearchCarwashIdPageState();
+  _AddCarwashIdScreenState createState() => _AddCarwashIdScreenState();
 }
 
-class _SearchCarwashIdPageState extends State<AddCarwashIdScreen> {
+class _AddCarwashIdScreenState extends State<AddCarwashIdScreen> {
+  final TextEditingController _idField = TextEditingController();
+
+  void _searchCarwash() async {
+    Map<String, dynamic> carwash = await FirebaseCustomer.getMerchant(_idField.text);
+    if(carwash.isNotEmpty){
+      Navigator.of(context).pushNamed(AddCarwashToListScreen.routeName, arguments: carwash);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,6 +69,7 @@ class _SearchCarwashIdPageState extends State<AddCarwashIdScreen> {
                   ),
                   Container(height: 35),
                   TextField(
+                    controller: _idField,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: 'Insert car wash id',
@@ -67,8 +78,9 @@ class _SearchCarwashIdPageState extends State<AddCarwashIdScreen> {
                   Container(height: 30),
                   CustomButton(
                     onPressed: () {
-                      Navigator.of(context)
-                          .pushNamed(AddCarwashToListScreen.routeName);
+                      _searchCarwash();
+                      // Navigator.of(context)
+                      //     .pushNamed(AddCarwashToListScreen.routeName);
                     },
                     text: "Search",
                   ),

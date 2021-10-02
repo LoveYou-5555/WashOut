@@ -5,7 +5,7 @@ import 'package:washout/screens/general/app_entry.dart';
 import 'package:washout/configs/routes.dart';
 import 'package:washout/screens/merchant/manage_queue_screen.dart';
 import 'package:washout/screens/merchant/merchant_home_screen.dart';
-import 'package:washout/screens/register_screen.dart';
+import 'package:washout/screens/customer/register_screen.dart';
 import 'package:washout/screens/merchant/add_service_merchant_screen.dart';
 import 'package:washout/screens/merchant/merchant_home_screen.dart';
 import 'package:washout/screens/merchant/service_merchant_screen.dart';

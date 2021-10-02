@@ -3,12 +3,21 @@
 
 import 'package:flutter/material.dart';
 import 'package:washout/screens/general/app_entry.dart';
+import 'package:washout/services/firebase_services.dart';
 
 class CustomDrawer extends StatelessWidget {
   final String accountName;
   final String accountEmail;
   final String imageURL;
   final void Function() onSignOut;
+
+  void _signOut(BuildContext context) async {
+    await FirebaseServices.signOut();
+    Navigator.of(context).pushNamedAndRemoveUntil(
+      AppEntry.routeName,
+      (route) => false,
+    );
+  }
 
   Future<void> _showSignOutDialog(BuildContext context) async {
     showDialog<String>(
@@ -23,10 +32,11 @@ class CustomDrawer extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                AppEntry.routeName,
-                (route) => false,
-              );
+              _signOut(context);
+              // Navigator.of(context).pushNamedAndRemoveUntil(
+              //   AppEntry.routeName,
+              //   (route) => false,
+              // );
             },
             child: const Text('OK'),
           ),
