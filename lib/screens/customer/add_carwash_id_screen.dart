@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:washout/screens/customer/add_carwash_to_list_screen.dart';
-import 'package:washout/services/firebase_customer.dart';
+import 'package:washout/services/firestore_merchants.dart';
 import 'package:washout/widgets/general/custom_appbar.dart';
 import 'package:washout/widgets/general/custom_back_button.dart';
 import 'package:washout/widgets/general/custom_button.dart';
@@ -21,7 +21,7 @@ class _AddCarwashIdScreenState extends State<AddCarwashIdScreen> {
   final TextEditingController _idField = TextEditingController();
 
   void _searchCarwash() async {
-    Map<String, dynamic> carwash = await FirebaseCustomer.getMerchant(_idField.text);
+    Map<String, dynamic> carwash = await FirestoreMerchants.getMerchantByUID(_idField.text);
     if(carwash.isNotEmpty){
       Navigator.of(context).pushNamed(AddCarwashToListScreen.routeName, arguments: carwash);
     }

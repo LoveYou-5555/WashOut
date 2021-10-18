@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:washout/screens/general/app_entry.dart';
-import 'package:washout/services/firebase_customer.dart';
+import 'package:washout/services/firestore_carwash_list.dart';
 import 'package:washout/widgets/general/custom_appbar.dart';
 import 'package:washout/widgets/general/custom_back_button.dart';
 import 'package:washout/widgets/general/custom_drawer.dart';
@@ -16,8 +16,8 @@ class AddCarwashToListScreen extends StatefulWidget {
 }
 
 class _AddCarwashToListScreenState extends State<AddCarwashToListScreen> {
-  void _addMerchant(String merch_uid) async {
-    await FirebaseCustomer.addMerchantToList(merch_uid);
+  void _addMerchant(String merchUID) async {
+    await FirestoreCarwashList.addCarwashToList(merchUID);
     Navigator.popUntil(context, ModalRoute.withName(AppEntry.routeName));
   }
 

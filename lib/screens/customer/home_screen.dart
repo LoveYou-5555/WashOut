@@ -3,13 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:washout/Widgets/general/custom_appbar.dart';
 import 'package:washout/configs/app_color.dart';
-import 'package:washout/configs/asset_paths.dart';
 import 'package:washout/screens/customer/add_carwash_id_screen.dart';
 import 'package:washout/screens/customer/queue_screen.dart';
-import 'package:washout/screens/general/app_entry.dart';
-import 'package:washout/services/firebase_customer.dart';
+import 'package:washout/services/firestore_carwash_list.dart';
 import 'package:washout/widgets/general/carwash_card.dart';
-import 'package:washout/widgets/general/custom_back_button.dart';
 import 'package:washout/widgets/general/custom_drawer.dart';
 import 'package:washout/widgets/general/text_button_with_icon.dart';
 
@@ -29,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _fetchCarwashes() async {
     print("FETCH");
-    var data = await FirebaseCustomer.getCarwashList();
+    var data = await FirestoreCarwashList.getCarwashList();
     setState(() {
       _carwashList = data;
     });

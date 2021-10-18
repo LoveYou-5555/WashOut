@@ -3,7 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:washout/screens/general/app_entry.dart';
-import 'package:washout/services/firebase_services.dart';
+import 'package:washout/services/authentication.dart';
 
 class CustomDrawer extends StatelessWidget {
   final String accountName;
@@ -12,7 +12,7 @@ class CustomDrawer extends StatelessWidget {
   final void Function() onSignOut;
 
   void _signOut(BuildContext context) async {
-    await FirebaseServices.signOut();
+    await AppAuthentication.signOut();
     Navigator.of(context).pushNamedAndRemoveUntil(
       AppEntry.routeName,
       (route) => false,

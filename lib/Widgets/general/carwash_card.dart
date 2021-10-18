@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 class CarwashCard extends StatelessWidget {
@@ -48,7 +50,7 @@ class CarwashCard extends StatelessWidget {
               children: [
                 Padding(padding: EdgeInsets.only(top: 20)),
                 Text(
-                  '$name',
+                  name,
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,

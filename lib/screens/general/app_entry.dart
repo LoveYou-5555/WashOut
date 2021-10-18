@@ -7,7 +7,9 @@ import 'package:washout/screens/customer/register_screen.dart';
 import 'package:washout/screens/merchant/login_merchant_screen.dart';
 import 'package:washout/screens/merchant/merchant_home_screen.dart';
 import 'package:washout/screens/register_merchant_screen.dart';
-import 'package:washout/services/firebase_services.dart';
+import 'package:washout/services/authentication.dart';
+import 'package:washout/services/firestore_carwash_list.dart';
+import 'package:washout/services/firestore_customers.dart';
 
 class AppEntry extends StatefulWidget {
   static const routeName = "/appEntry";
@@ -41,7 +43,7 @@ class _AppEntryState extends State<AppEntry> {
       await Firebase.initializeApp();
       setState(() {
         _firebaseIniting = false;
-        user = FirebaseServices.getCurrentUser();
+        user = AppAuthentication.getCurrentUser();
       });
     } catch (e) {
       // Set `_error` state to true if Firebase initialization fails
@@ -64,24 +66,29 @@ class _AppEntryState extends State<AppEntry> {
   }
 
   void _signUp() async {
-    print(regisEmailCont.text);
-    print(regisPassCont.text);
-    print(regisNameCont.text);
-    print(regisLNCont.text);
+    try {
+      User? u = await AppAuthentication.signUp(
+        email: regisEmailCont.text,
+        password: regisPassCont.text,
+      );
 
-    User? u = await FirebaseServices.signUp(
-      email: regisEmailCont.text,
-      password: regisPassCont.text,
-      firstName: regisNameCont.text,
-      lastName: regisLNCont.text,
-    );
-    setState(() {
-      user = u;
-    });
+      await FirestoreCustomer.createUser(
+        firstName: regisNameCont.text,
+        lastName: regisLNCont.text,
+      );
+
+      await FirestoreCarwashList.createCarwashList();
+
+      setState(() {
+        user = u;
+      });
+    } catch (e) {
+      print("Sign up process failed");
+    }
   }
 
   void _signIn() async {
-    User? u = await FirebaseServices.signIn(
+    User? u = await AppAuthentication.signIn(
       loginEmailCont.text,
       loginPassCont.text,
     );

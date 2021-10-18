@@ -9,7 +9,6 @@ import 'package:washout/screens/customer/summary_pre_screen.dart';
 import 'package:washout/screens/customer/summary_screen.dart';
 import 'package:washout/screens/general/app_entry.dart';
 import 'package:washout/screens/register_merchant_screen.dart';
-import 'package:washout/screens/customer/register_screen.dart';
 
 final routes = {
   AppEntry.routeName: (ctx) => const AppEntry(),
