@@ -1,27 +1,66 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, must_be_immutable, prefer_const_literals_to_create_immutables
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:washout/configs/app_color.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:washout/configs/colors.dart';
+import 'package:washout/configs/const.dart';
 import 'package:washout/configs/sizes.dart';
-import 'package:washout/screens/customer/home_screen.dart';
-import 'package:washout/screens/customer/register_screen.dart';
+import 'package:washout/screens/customer/register_customer_screen.dart';
+import 'package:washout/screens/general/app_entry.dart';
+import 'package:washout/services/firestore_customers.dart';
+import 'package:washout/services/firestore_merchants.dart';
 import 'package:washout/widgets/general/custom_button.dart';
 import 'package:washout/widgets/general/login_screen_logo.dart';
 
 class LoginCustomerScreen extends StatelessWidget {
-  final void Function() onModeSwitch;
-  final void Function() onLogin;
-  final void Function() onToSignUp;
-  final TextEditingController emailCont;
-  final TextEditingController passCont;
+  static const routeName = "/customerLogin";
+
+  final _email = TextEditingController();
+  final _password = TextEditingController();
 
   LoginCustomerScreen({
     Key? key,
-    required this.onModeSwitch,
-    required this.onLogin,
-    required this.onToSignUp,
-    required this.emailCont,
-    required this.passCont,
   }) : super(key: key);
+
+  void _switchToMerchant(BuildContext context) async {
+    final pref = await SharedPreferences.getInstance();
+    await pref.setBool(isMerchantPrefKey, true);
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil(AppEntry.routeName, (route) => false);
+  }
+
+  Future<void> signIn(BuildContext context) async {
+    if (_email.text.isNotEmpty && _password.text.length >= 6) {
+      try {
+        if (await FirestoreMerchants().getMerchantByEmail(_email.text) !=
+            null) {
+          print("wrong mode");
+          return;
+        }
+
+        final userCred = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _email.text,
+          password: _password.text,
+        );
+        final pref = await SharedPreferences.getInstance();
+        final cus =
+            await FirestoreCustomer().getCustomerByUID(userCred.user!.uid);
+
+        print('get customer complete');
+
+        await pref.setString(firstNamePrefKey, cus!.firstName);
+        await pref.setString(lastNamePrefKey, cus.lastName);
+
+        print('set pref complete');
+
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil(AppEntry.routeName, (route) => false);
+      } catch (e) {
+        print(e);
+        print("Can't sign in");
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,41 +90,20 @@ class LoginCustomerScreen extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(
-                      height: 17.0,
-                    ),
+                    kSizedBoxVerticalS,
                     TextField(
-                      controller: emailCont,
                       decoration: InputDecoration(labelText: 'E-mail'),
+                      controller: _email,
                     ),
                     SizedBox(
                       height: 13.0,
                     ),
                     TextField(
-                      controller: passCont,
                       obscureText: true,
                       decoration: InputDecoration(
                         labelText: 'Password(6-20Characters)',
                       ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Forget Password?",
-                          style: TextStyle(
-                            color: Colors.grey,
-                          ),
-                        ),
-                        TextButton(
-                          child: Text("Reset Password"),
-                          onPressed: () {
-                            Navigator.of(context).pushNamed(
-                              RegisterScreen.routeName,
-                            );
-                          },
-                        ),
-                      ],
+                      controller: _password,
                     ),
                     SizedBox(
                       height: 20.0,
@@ -94,12 +112,8 @@ class LoginCustomerScreen extends StatelessWidget {
                       children: [
                         Expanded(
                           child: CustomButton(
-                            color: AppColor.customerPrimary,
-                            onPressed: () {
-                              onLogin();
-                              // Navigator.of(context).pushNamedAndRemoveUntil(
-                              //     HomeScreen.routeName, (route) => false);
-                            },
+                            color: kCustomerPrimary,
+                            onPressed: () => signIn(context),
                             text: 'Sign In',
                           ),
                         ),
@@ -116,12 +130,8 @@ class LoginCustomerScreen extends StatelessWidget {
                         ),
                         TextButton(
                           child: Text("Create account"),
-                          onPressed: () {
-                            onToSignUp();
-                            // Navigator.of(context).pushNamed(
-                            //   RegisterScreen.routeName,
-                            // );
-                          },
+                          onPressed: () => Navigator.of(context)
+                              .pushNamed(RegisterCustomerScreen.routeName),
                         ),
                       ],
                     ),
@@ -139,7 +149,7 @@ class LoginCustomerScreen extends StatelessWidget {
                               color: Colors.red,
                             ),
                           ),
-                          onPressed: onModeSwitch,
+                          onPressed: () => _switchToMerchant(context),
                         ),
                       ],
                     )

@@ -5,7 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:washout/Widgets/general/custom_appbar.dart';
 import 'package:washout/Widgets/general/custom_drawer.dart';
-import 'package:washout/configs/app_color.dart';
+import 'package:washout/configs/colors.dart';
 import 'package:washout/configs/sizes.dart';
 import 'package:washout/screens/general/app_entry.dart';
 import 'package:washout/screens/merchant/history2_screen.dart';
@@ -31,8 +31,6 @@ class _HistoryMerchantScreenState extends State<HistoryMerchantScreen> {
       drawer: CustomDrawer(
         accountEmail: "email@mail.com",
         accountName: "Bob Somchai",
-        imageURL:
-            'https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg',
         onSignOut: () {
           Navigator.of(context)
               .pushNamedAndRemoveUntil(AppEntry.routeName, (route) => false);

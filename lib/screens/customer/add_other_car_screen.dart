@@ -55,8 +55,6 @@ class _AddOtherCarScreenState extends State<AddOtherCarScreen> {
         accountEmail: "mail@mail.com",
         accountName: "Bob Somchai",
         onSignOut: () {},
-        imageURL:
-            "https://i.insider.com/5cdedc95021b4c12a50f46f6?width=1136&format=jpeg",
       ),
       body: SingleChildScrollView(
         child: Column(

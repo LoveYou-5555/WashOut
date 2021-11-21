@@ -1,22 +1,22 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:washout/configs/sizes.dart';
 
 class CarwashCard extends StatelessWidget {
   const CarwashCard({
     Key? key,
     required this.id,
     required this.name,
-    required this.imageUrl,
     required this.onPressed,
     this.showBorder = true,
-
+    this.active = false,
   }) : super(key: key);
 
   final String id;
   final String name;
-  final String imageUrl;
   final bool showBorder;
+  final bool active;
 
   final void Function() onPressed;
 
@@ -25,46 +25,50 @@ class CarwashCard extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: Container(
-        width: 300,
-        height: 100,
+        padding: EdgeInsets.all(kSizeS),
         decoration: BoxDecoration(
-          border: showBorder ? Border.all(
-            color: Colors.black,
-            width: 1,
-          ) : null,
+          color: active ? Colors.lightBlue[50] : null,
+          border: showBorder
+              ? Border.all(
+                  color: Colors.black,
+                  width: 1,
+                )
+              : null,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.max,
           children: [
-            CircleAvatar(
-              radius: 40,
-              backgroundImage: NetworkImage(
-                imageUrl,
+            Expanded(
+              child: Icon(
+                Icons.local_car_wash,
+                color: Colors.black,
+                size: kSizeL,
               ),
             ),
-            SizedBox(
-              width: 20,
-            ),
-            Column(
-              children: [
-                Padding(padding: EdgeInsets.only(top: 20)),
-                Text(
-                  name,
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20),
-                ),
-                SizedBox(height: 10),
-                Text(
-                  'ID: $id',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15),
-                )
-              ],
+            Expanded(
+              flex: 3,
+              child: Column(
+                children: [
+                  Text(
+                    name,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20),
+                  ),
+                  kSizedBoxVerticalXS,
+                  kSizedBoxVerticalXXS,
+                  Text(
+                    active ? 'Your queue is here' : 'ID: $id',
+                    style: TextStyle(
+                        color: active ? Colors.green : Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15),
+                  )
+                ],
+              ),
             )
           ],
         ),

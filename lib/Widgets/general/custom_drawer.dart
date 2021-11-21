@@ -1,22 +1,69 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 // https://i.insider.com/5cdedc95021b4c12a50f46f6?width=1136&format=jpeg
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:washout/configs/colors.dart';
+import 'package:washout/configs/const.dart';
 import 'package:washout/screens/general/app_entry.dart';
-import 'package:washout/services/authentication.dart';
 
-class CustomDrawer extends StatelessWidget {
+class CustomDrawer extends StatefulWidget {
   final String accountName;
   final String accountEmail;
-  final String imageURL;
-  final void Function() onSignOut;
+  final void Function()? onSignOut;
+  final Color primaryColor;
+
+  const CustomDrawer({
+    Key? key,
+    required this.accountName,
+    required this.accountEmail,
+    required this.onSignOut,
+    this.primaryColor = kCustomerPrimary,
+  }) : super(key: key);
+
+  @override
+  State<CustomDrawer> createState() => _CustomDrawerState();
+}
+
+class _CustomDrawerState extends State<CustomDrawer> {
+  String? accountName;
+  String? accountEmail;
+
+  Future<void> loadUserData() async {
+    final pref = await SharedPreferences.getInstance();
+    if (pref.getBool("isMerchant") ?? false) {
+      setState(() {
+        accountName =
+            "${pref.getString(firstNamePrefKey)} ${pref.getString(lastNamePrefKey)}";
+      });
+    } else {
+      setState(() {
+        accountName = pref.getString(namePrefKey);
+      });
+    }
+
+    setState(() {
+      accountEmail = FirebaseAuth.instance.currentUser?.email;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadUserData();
+  }
 
   void _signOut(BuildContext context) async {
-    await AppAuthentication.signOut();
-    Navigator.of(context).pushNamedAndRemoveUntil(
-      AppEntry.routeName,
-      (route) => false,
-    );
+    try {
+      await FirebaseAuth.instance.signOut();
+      Navigator.of(context).pushNamedAndRemoveUntil(
+        AppEntry.routeName,
+        (route) => false,
+      );
+    } catch (e) {
+      print("Can't sign out");
+    }
   }
 
   Future<void> _showSignOutDialog(BuildContext context) async {
@@ -45,33 +92,26 @@ class CustomDrawer extends StatelessWidget {
     );
   }
 
-  const CustomDrawer({
-    Key? key,
-    required this.accountName,
-    required this.accountEmail,
-    this.imageURL =
-        'https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg',
-    required this.onSignOut,
-  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
         children: <Widget>[
-          UserAccountsDrawerHeader(
-            accountName: Text(accountName),
-            accountEmail: Text(accountEmail),
-            currentAccountPicture: CircleAvatar(
-              backgroundImage: NetworkImage(
-                imageURL,
-              ),
-            ),
-          ),
+          // UserAccountsDrawerHeader(
+          //   decoration: BoxDecoration(
+          //     color: widget.primaryColor,
+          //   ),
+          //   accountName: Text(accountName ?? "UNKNOWN"),
+          //   accountEmail: Text(accountEmail ?? "UNKNOWN"),
+          // ),
           TextButton(
             onPressed: () => _showSignOutDialog(context),
             child: Row(
               children: [
-                Icon(Icons.arrow_back_ios),
+                Icon(
+                  Icons.arrow_back_ios,
+                  color: widget.primaryColor,
+                ),
                 Text(
                   'Sign Out',
                   style: TextStyle(color: Colors.black),

@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:washout/screens/add_carwash_screen.dart';
-import 'package:washout/screens/customer/home_screen.dart';
+import 'package:washout/screens/customer/customer_home_screen.dart';
 
 class SearchCarwashScreen extends StatefulWidget {
   const SearchCarwashScreen({Key? key}) : super(key: key);
@@ -48,7 +48,7 @@ class _SearchCarwashScreenState extends State<SearchCarwashScreen> {
           TextButton(
             onPressed: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return HomeScreen();
+                return CustomerHomeScreen();
               }));
             },
             child: Row(

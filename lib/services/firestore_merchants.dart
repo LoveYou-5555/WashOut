@@ -1,38 +1,135 @@
-// ignore_for_file: avoid_print
-
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:washout/configs/firestore_collections.dart';
-
-final _merchants = FirestoreCollections.merchants;
+import 'package:washout/model/merchant.dart';
+import 'package:washout/services/firestore_customers.dart';
 
 class FirestoreMerchants {
-  FirestoreMerchants._();
+  Future<void> createAccount({
+    required String uid,
+    required String name,
+    required String carwashID,
+    required String email,
+  }) async {
+    await merchantsCollection.add({
+      "uid": uid,
+      "name": name,
+      "carwashID": carwashID,
+      "email": email,
+    });
+  }
 
-  static Future<Map<String, dynamic>> getMerchantByUID(String merchantId) async {
+  Future<bool> carwashIDExists(String carwashID) async {
+    final snap = await merchantsCollection
+        .where(
+          "carwashID",
+          isEqualTo: carwashID,
+        )
+        .get();
+
+    return snap.docs.isNotEmpty;
+  }
+
+  Future<Merchant?> getMerchantData() async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid == null) {
+      return null;
+    }
+    final snap = await merchantsCollection.where("uid", isEqualTo: uid).get();
+    final data = snap.docs[0].data();
+
+    return Merchant(
+      name: data["name"],
+      carwashID: data["carwashID"],
+      email: FirebaseAuth.instance.currentUser?.email ?? "no email",
+      uid: uid,
+    );
+  }
+
+  Future<Merchant?> getMerchantByCarwashID(String carwashID) async {
     try {
-      QuerySnapshot qrShot = await _merchants
-          .where(
-            "merchant_id",
-            isEqualTo: merchantId,
-          )
+      final snap = await merchantsCollection
+          .where("carwashID", isEqualTo: carwashID)
           .get();
-
-      return qrShot.docs[0].data() as Map<String, dynamic>;
+      if (snap.docs.isEmpty) {
+        return null;
+      } else {
+        final data = snap.docs[0].data();
+        return Merchant(
+          name: data["name"],
+          carwashID: data["carwashID"],
+          email: null,
+          uid: data["uid"],
+        );
+      }
     } catch (e) {
-      print("NOT FOUND");
-      return {};
+      print("cant get merch by cwID");
+      return null;
     }
   }
 
-  static Future<Map<String, dynamic>> getMerchantByDocId(String docId) async {
+  Future<Merchant?> getMerchantByEmail(String email) async {
     try {
-      DocumentSnapshot merchDS =
-          await FirestoreCollections.merchants.doc(docId).get();
-
-      return merchDS.data() as Map<String, dynamic>;
+      final snap =
+          await merchantsCollection.where("email", isEqualTo: email).get();
+      if (snap.docs.isEmpty) {
+        return null;
+      } else {
+        final data = snap.docs[0].data();
+        return Merchant(
+          name: data["name"],
+          carwashID: data["carwashID"],
+          email: data["email"],
+          uid: data["uid"],
+        );
+      }
     } catch (e) {
-      print("single failed");
-      return {};
+      print("cant get merch by cwID");
+      return null;
+    }
+  }
+
+  Future<Merchant?> getMerchantByUID(String uid) async {
+    try {
+      final snap = await merchantsCollection.where("uid", isEqualTo: uid).get();
+      if (snap.docs.isEmpty) {
+        print('no merch');
+        return null;
+      } else {
+        final data = snap.docs[0].data();
+        print(data);
+        return Merchant(
+          name: data["name"],
+          carwashID: data["carwashID"],
+          email: data["phone"],
+          uid: uid,
+        );
+      }
+    } catch (e) {
+      print(e);
+      print("Can't get");
+      return null;
+    }
+  }
+
+  Future<List<Merchant?>> getMerchantsByCurrentCustomer() async {
+    try {
+      List<Merchant?> result = [];
+
+      final uid = FirebaseAuth.instance.currentUser!.uid;
+      final customer = await FirestoreCustomer().getCustomerByUID(uid);
+      print("get customer pass");
+      final merchList = customer!.carwashList;
+
+      for (String merchUID in merchList) {
+        final merchant = await FirestoreMerchants().getMerchantByUID(merchUID);
+        result.add(merchant);
+      }
+
+      return result;
+    } catch (e) {
+      print("Failed to get merchants");
+      print(e);
+      return [];
     }
   }
 }

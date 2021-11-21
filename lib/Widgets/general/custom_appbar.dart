@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:washout/configs/app_color.dart';
+import 'package:washout/configs/colors.dart';
 import 'package:washout/widgets/general/app_logo.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {

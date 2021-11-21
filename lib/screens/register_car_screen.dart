@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-import 'package:washout/screens/customer/home_screen.dart';
+import 'package:washout/screens/customer/customer_home_screen.dart';
 
 class RegisterCarScreen extends StatefulWidget {
   const RegisterCarScreen({Key? key}) : super(key: key);
@@ -47,7 +47,7 @@ class _RegisterCarScreenState extends State<RegisterCarScreen> {
           TextButton(
             onPressed: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return HomeScreen();
+                return CustomerHomeScreen();
               }));
             },
             child: Row(

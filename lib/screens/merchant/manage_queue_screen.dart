@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:washout/Widgets/general/custom_appbar.dart';
 import 'package:washout/Widgets/general/custom_button.dart';
-import 'package:washout/configs/app_color.dart';
+import 'package:washout/configs/colors.dart';
 import 'package:washout/screens/merchant/merchant_home_screen.dart';
+import 'package:washout/widgets/appbars/merchant_appbar.dart';
 
 class ManageQueueScreen extends StatefulWidget {
   const ManageQueueScreen({Key? key}) : super(key: key);
@@ -16,9 +17,7 @@ class _ManageQueueScreenState extends State<ManageQueueScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFEFEAEA),
-      appBar: CustomAppBar(
-        isMerchant: true,
-      ),
+      appBar: const MerchantAppBar(),
       drawer: Drawer(
         child: ListView(
           children: <Widget>[

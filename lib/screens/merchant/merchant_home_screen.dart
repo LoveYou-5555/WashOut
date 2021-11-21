@@ -1,17 +1,24 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:washout/Widgets/general/custom_appbar.dart';
-import 'package:washout/configs/app_color.dart';
-import 'package:washout/screens/book_screen.dart';
-import 'package:washout/screens/merchant/history1_merchant_screen.dart';
-import 'package:washout/screens/merchant/history2_screen.dart';
-
-import 'package:washout/screens/merchant/manage_queue_screen.dart';
-import 'package:washout/screens/merchant/service_merchant_screen.dart';
+import 'package:washout/Widgets/general/custom_drawer.dart';
+import 'package:washout/configs/colors.dart';
+import 'package:washout/configs/sizes.dart';
+import 'package:washout/model/merchant.dart';
+import 'package:washout/model/queue_ticket.dart';
+import 'package:washout/screens/merchant/manual_ticket_screen.dart';
+import 'package:washout/screens/merchant/queue_detail_screen.dart';
+import 'package:washout/services/firestore_merchants.dart';
+import 'package:washout/services/firestore_queue_tickets.dart';
+import 'package:washout/widgets/appbars/merchant_appbar.dart';
+import 'package:washout/widgets/general/custom_button.dart';
+import 'package:washout/widgets/general/queue_ticket_card.dart';
 
 class MerchantHomeScreen extends StatefulWidget {
+  static const routeName = "/merchantHome";
+
   const MerchantHomeScreen({Key? key}) : super(key: key);
 
   @override
@@ -19,420 +26,126 @@ class MerchantHomeScreen extends StatefulWidget {
 }
 
 class _MerchantHomeScreenState extends State<MerchantHomeScreen> {
+  Merchant? profile;
+  List<QueueTicket?> tickets = [];
+  bool isLoading = true;
+
+  Future<void> fetchScreenData() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    print("Load quees");
+
+    final data = await FirestoreMerchants()
+        .getMerchantByUID(FirebaseAuth.instance.currentUser!.uid);
+
+    final queues = await FirestoreQueueTickets()
+        .getQueueTicketListByMerchant(FirebaseAuth.instance.currentUser!.uid);
+
+    queues.sort((a, b) =>
+        a!.createdAt.millisecondsSinceEpoch -
+        b!.createdAt.millisecondsSinceEpoch);
+
+    profile = data;
+    tickets = queues;
+
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchScreenData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFEFEAEA),
-      appBar: CustomAppBar(
-        isMerchant: true,
-        iconColor: AppColor.merchantPrimary,
+      appBar: MerchantAppBar(),
+      drawer: CustomDrawer(
+        primaryColor: kMerchantPrimary,
+        accountEmail: "AAA",
+        accountName: "BBB",
+        onSignOut: () {},
       ),
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            UserAccountsDrawerHeader(
-              accountName: Text('AAA'),
-              accountEmail: Text('haha@gmail.com'),
-              currentAccountPicture: CircleAvatar(
-                backgroundImage: NetworkImage(
-                    'https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg'),
+      body: isLoading
+          ? Center(
+              child: CircularProgressIndicator(
+                color: kMerchantPrimary,
               ),
-            ),
-            TextButton(
-              onPressed: () {},
-              child: Row(
+            )
+          : Padding(
+              padding: const EdgeInsets.all(kScreenPadding),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(Icons.arrow_back_ios),
-                  Text(
-                    'Sigh Out',
-                    style: TextStyle(color: Colors.black),
-                  )
+                  Text(profile!.name),
+                  Text("ID: ${profile!.carwashID}"),
+                  kSizedBoxVerticalS,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Your queue"),
+                            CustomButton(
+                              onPressed: () {
+                                Navigator.of(context)
+                                    .pushNamed(ManualTicketScreen.routeName)
+                                    .then((value) => fetchScreenData());
+                              },
+                              text: "Add new ticket",
+                              color: kMerchantPrimary,
+                            ),
+                          ],
+                        ),
+                        Expanded(
+                          child: tickets.isEmpty
+                              ? Center(
+                                  child: Text("No new ticket"),
+                                )
+                              : ListView.builder(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: kSizeS),
+                                  itemCount: tickets.length,
+                                  itemBuilder: (context, index) => Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: kSizeXS),
+                                    child: QueueTicketCard(
+                                      createdAt: tickets[index]!.createdAt,
+                                      licensePlate:
+                                          tickets[index]!.licensePlate,
+                                      isOverdue: index == 0,
+                                      onPressed: () {
+                                        Navigator.of(context)
+                                            .pushNamed(
+                                              QueueDetailScreen.routeName,
+                                              arguments:
+                                                  tickets[index]!.licensePlate,
+                                            )
+                                            .then((value) => fetchScreenData());
+                                      },
+                                    ),
+                                  ),
+                                ),
+                        ),
+                        CustomButton(
+                          onPressed: fetchScreenData,
+                          color: kMerchantPrimary,
+                          text: "Refresh",
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
-          ],
-        ),
-      ),
-      resizeToAvoidBottomInset: false,
-      body: Column(
-        children: [
-          Container(
-            height: 30,
-          ),
-          Expanded(
-            flex: 771,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30.0),
-              child: Container(
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Text('เมนูหลัก',
-                            style: TextStyle(
-                                fontSize: 30.0, fontWeight: FontWeight.bold)),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              color: Colors.red,
-                              borderRadius: BorderRadius.circular(10)),
-                          height: 80,
-                          width: 145,
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ServiceMerchantScreen()));
-                            },
-                            child: Center(
-                              child: Column(
-                                children: [
-                                  Icon(
-                                    Icons.local_car_wash,
-                                    color: Colors.white,
-                                    size: 50,
-                                  ),
-                                  Text(
-                                    'บริการของร้าน',
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              color: Colors.red,
-                              borderRadius: BorderRadius.circular(10)),
-                          height: 80,
-                          width: 145,
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          ManageQueueScreen()));
-                            },
-                            child: Center(
-                              child: Column(
-                                children: [
-                                  Icon(
-                                    Icons.person_pin,
-                                    color: Colors.white,
-                                    size: 50,
-                                  ),
-                                  Text(
-                                    'จัดการรายการลูกค้า',
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              color: Colors.red,
-                              borderRadius: BorderRadius.circular(10)),
-                          height: 80,
-                          width: 145,
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => HistoryMerchantScreen()));
-                            },
-                            child: Center(
-                              child: Column(
-                                children: [
-                                  Icon(
-                                    Icons.history,
-                                    color: Colors.white,
-                                    size: 50,
-                                  ),
-                                  Text(
-                                    'ประวัติรายการลูกค้า',
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              color: Colors.blue,
-                              borderRadius: BorderRadius.circular(10)),
-                          height: 80,
-                          width: 145,
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => BookScreen()));
-                            },
-                            child: Column(
-                              
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'รายรับ',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    "200 Bath",
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Row(
-                      children: [
-                        Text('รายการขณะนี้',
-                            style: TextStyle(
-                                fontSize: 30.0, fontWeight: FontWeight.bold)),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            padding: EdgeInsets.all(10.0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Row(children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.grey,
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                        width: 65,
-                                        height: 20,
-                                        child: Center(
-                                          child: Row(
-                                            children: [
-                                              Icon(
-                                                Icons.hourglass_bottom,
-                                                color: Colors.white,
-                                                size: 10,
-                                              ),
-                                              Text(
-                                                'รอดำเนินการ',
-                                                style: TextStyle(
-                                                  fontSize: 10,
-                                                  color: Colors.white,
-                                                ),
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.orange,
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                        width: 50,
-                                        height: 20,
-                                        child: Center(
-                                          child: Column(
-                                            children: [
-                                              Text(
-                                                'ใหม่',
-                                                style: TextStyle(
-                                                  fontSize: 13,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      )
-                                    ]),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      'สหัสวัต เพชรมณี',
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Row(
-                                      children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                              color: Colors.red[300],
-                                              borderRadius:
-                                                  BorderRadius.circular(0)),
-                                          width: 65,
-                                          height: 20,
-                                          child: Center(
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                  'ล้างรถ',
-                                                  style: TextStyle(
-                                                    fontSize: 13,
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 5,
-                                        ),
-                                        Container(
-                                          decoration: BoxDecoration(
-                                              color: Colors.red[300],
-                                              borderRadius:
-                                                  BorderRadius.circular(0)),
-                                          width: 65,
-                                          height: 20,
-                                          child: Center(
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                  'ดูดฝุ่น',
-                                                  style: TextStyle(
-                                                    fontSize: 13,
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      color: Colors.blue,
-                                      width: 100,
-                                      height: 60,
-                                      child: Center(
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              'กอ 5445',
-                                              style: TextStyle(
-                                                fontSize: 13,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text("ชื่อรถ"),
-                                        Icon(
-                                          Icons.color_lens_outlined,
-                                          color: Colors.red,
-                                        ),
-                                        Text("สี")
-                                      ],
-                                    )
-                                  ],
-                                )
-                              ],
-                            ),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10)),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

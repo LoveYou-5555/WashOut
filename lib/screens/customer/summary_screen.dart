@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:washout/Widgets/general/custom_appbar.dart';
 import 'package:washout/Widgets/general/custom_drawer.dart';
-import 'package:washout/screens/customer/home_screen.dart';
-import 'package:washout/screens/customer/queue_screen.dart';
+import 'package:washout/screens/customer/customer_home_screen.dart';
+import 'package:washout/screens/customer/merchant_detail_screen.dart';
 import 'package:washout/widgets/general/carwash_card.dart';
 import 'package:washout/widgets/general/custom_back_button.dart';
 import 'package:washout/widgets/general/custom_button.dart';
@@ -58,8 +58,6 @@ class SummaryScreen extends StatelessWidget {
         accountEmail: "mail@mail.com",
         accountName: "Bob Somchai",
         onSignOut: () {},
-        imageURL:
-            "https://i.insider.com/5cdedc95021b4c12a50f46f6?width=1136&format=jpeg",
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -70,8 +68,6 @@ class SummaryScreen extends StatelessWidget {
               children: [
                 CarwashCard(
                   id: "123456",
-                  imageUrl:
-                      "https://i.insider.com/5cdedc95021b4c12a50f46f6?width=1136&format=jpeg",
                   name: "ABC carcare",
                   onPressed: () {},
                   showBorder: false,
@@ -135,7 +131,7 @@ class SummaryScreen extends StatelessWidget {
             ),
             CustomButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(QueueScreen.routeName);
+                Navigator.of(context).pushNamed(MerchantDetailScreen.routeName);
               },
               text: "Close",
               color: Colors.grey,

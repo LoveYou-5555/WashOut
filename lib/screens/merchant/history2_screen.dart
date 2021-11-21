@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:washout/Widgets/general/custom_appbar.dart';
 import 'package:washout/Widgets/general/custom_button.dart';
-import 'package:washout/configs/app_color.dart';
+import 'package:washout/configs/colors.dart';
 import 'package:washout/screens/merchant/merchant_home_screen.dart';
 
 class HistoryScreen extends StatefulWidget {

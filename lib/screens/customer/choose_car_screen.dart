@@ -50,8 +50,6 @@ class _ChooseCarScreenState extends State<ChooseCarScreen> {
         accountEmail: "mail@mail.com",
         accountName: "Bob Somchai",
         onSignOut: () {},
-        imageURL:
-            "https://i.insider.com/5cdedc95021b4c12a50f46f6?width=1136&format=jpeg",
       ),
       resizeToAvoidBottomInset: false,
       body: Padding(
@@ -66,8 +64,6 @@ class _ChooseCarScreenState extends State<ChooseCarScreen> {
             ),
             CarwashCard(
               id: "123456",
-              imageUrl:
-                  "https://i.pinimg.com/474x/f5/0f/ca/f50fcac962f825241f039d2eede27c50.jpg",
               name: "Bob Lame",
               onPressed: () {},
               showBorder: false,
