@@ -6,7 +6,7 @@ import 'package:washout/configs/colors.dart';
 import 'package:washout/configs/sizes.dart';
 import 'package:washout/model/merchant.dart';
 import 'package:washout/screens/customer/new_queue_screen.dart';
-import 'package:washout/screens/customer/service_customer.dart';
+
 import 'package:washout/screens/general/app_entry.dart';
 import 'package:washout/services/firestore_customers.dart';
 import 'package:washout/services/firestore_merchants.dart';

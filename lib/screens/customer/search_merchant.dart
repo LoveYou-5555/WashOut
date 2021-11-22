@@ -22,6 +22,7 @@ class _SearchMerchantScreenState extends State<SearchMerchantScreen> {
   final _carwashID = TextEditingController();
 
   Future<void> confirmSearch() async {
+    print("sd");
     if (_carwashID.text.isNotEmpty) {
       final merch =
           await FirestoreMerchants().getMerchantByCarwashID(_carwashID.text);
