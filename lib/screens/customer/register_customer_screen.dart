@@ -6,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:washout/configs/colors.dart';
 import 'package:washout/configs/const.dart';
 import 'package:washout/configs/sizes.dart';
-import 'package:washout/model/profile.dart';
 import 'package:washout/screens/customer/customer_home_screen.dart';
 import 'package:washout/screens/general/app_entry.dart';
 import 'package:washout/services/firestore_customers.dart';
