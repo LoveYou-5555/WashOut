@@ -4,16 +4,34 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:washout/configs/firestore_collections.dart';
 import 'package:washout/model/queue_ticket.dart';
+import 'package:washout/services/firestore_customers.dart';
 
 class FirestoreQueueTickets {
-  Future<void> createQueueTicketManually({required String licensePlate}) async {
+  Stream<QuerySnapshot> getQueueTicketStream({
+    required String merchantUID,
+  }) {
+    return queueTicketsCollection
+        .where("merchantUID", isEqualTo: merchantUID)
+        .snapshots();
+  }
+
+  Stream<QuerySnapshot> getQueueTicketStreamByCustomer({
+    required String customerUID,
+  }) {
+    return queueTicketsCollection
+        .where("customerUID", isEqualTo: customerUID)
+        .snapshots();
+  }
+
+  Future<void> createQueueTicketManually(
+      {required String licensePlate, required String? phone}) async {
     try {
-      await queueTicketsCollection.add({
-        "merchantUID": FirebaseAuth.instance.currentUser!.uid,
-        "customerUID": null,
-        "createdAt": FieldValue.serverTimestamp(),
-        "licensePlate": licensePlate,
-      });
+      await addNewQueueTicket(
+        merchantUID: FirebaseAuth.instance.currentUser!.uid,
+        licensePlate: licensePlate,
+        phone: phone!,
+        customerUID: null,
+      );
     } catch (e) {
       print(e);
       print("Cant add queue");
@@ -26,15 +44,60 @@ class FirestoreQueueTickets {
     String licensePlate,
   ) async {
     try {
+      final cus = await FirestoreCustomer().getCustomerByUID(customerUID);
+
+      await addNewQueueTicket(
+        merchantUID: merchantUID,
+        licensePlate: licensePlate,
+        phone: cus!.phone,
+        customerUID: customerUID,
+      );
+    } catch (e) {
+      print(e);
+      print("Cant add queue");
+    }
+  }
+
+  Future<void> addNewQueueTicket({
+    required String merchantUID,
+    String? customerUID,
+    required String licensePlate,
+    required String phone,
+  }) async {
+    try {
       await queueTicketsCollection.add({
         "merchantUID": merchantUID,
         "customerUID": customerUID,
         "createdAt": FieldValue.serverTimestamp(),
         "licensePlate": licensePlate,
+        "phone": phone,
+        "status": "active",
       });
     } catch (e) {
       print(e);
-      print("Cant add queue");
+      print("Base add queue failed");
+    }
+  }
+
+  Future<void> updateTicketStatus({
+    required String licensePlate,
+    required String newValue,
+  }) async {
+    try {
+      final snap = await queueTicketsCollection
+          .where(
+            "licensePlate",
+            isEqualTo: licensePlate,
+          )
+          .get();
+
+      final docID = snap.docs[0].id;
+      await queueTicketsCollection.doc(docID).update({
+        "status": newValue,
+      });
+    } catch (e) {
+      print(e);
+      print("Failed update stat");
     }
   }
 

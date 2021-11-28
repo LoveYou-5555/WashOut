@@ -2,6 +2,19 @@
 
 import 'package:flutter/material.dart';
 import 'package:washout/configs/sizes.dart';
+import 'package:washout/model/queue_ticket.dart';
+
+final statusColor = {
+  QueueTicketStatus.active: Colors.lightBlue[50],
+  QueueTicketStatus.completed: Colors.green[100],
+  QueueTicketStatus.rejected: Colors.red[100],
+};
+
+final statusMessage = {
+  QueueTicketStatus.active: "Your queue is here",
+  QueueTicketStatus.completed: "Your queue is completed",
+  QueueTicketStatus.rejected: "Your queue is rejected",
+};
 
 class CarwashCard extends StatelessWidget {
   const CarwashCard({
@@ -11,12 +24,14 @@ class CarwashCard extends StatelessWidget {
     required this.onPressed,
     this.showBorder = true,
     this.active = false,
+    this.status,
   }) : super(key: key);
 
   final String id;
   final String name;
   final bool showBorder;
   final bool active;
+  final QueueTicketStatus? status;
 
   final void Function() onPressed;
 
@@ -27,7 +42,7 @@ class CarwashCard extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(kSizeS),
         decoration: BoxDecoration(
-          color: active ? Colors.lightBlue[50] : null,
+          color: status == null ? null : statusColor[status],
           border: showBorder
               ? Border.all(
                   color: Colors.black,
@@ -54,18 +69,20 @@ class CarwashCard extends StatelessWidget {
                   Text(
                     name,
                     style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20),
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
                   ),
                   kSizedBoxVerticalXS,
                   kSizedBoxVerticalXXS,
                   Text(
-                    active ? 'Your queue is here' : 'ID: $id',
+                    status == null ? "ID: $id" : statusMessage[status]!,
                     style: TextStyle(
-                        color: active ? Colors.green : Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15),
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: kSizeS,
+                    ),
                   )
                 ],
               ),

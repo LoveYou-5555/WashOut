@@ -1,7 +1,6 @@
 import 'package:washout/screens/customer/new_queue_screen.dart';
 import 'package:washout/screens/customer/register_customer_screen.dart';
 import 'package:washout/screens/customer/search_merchant.dart';
-import 'package:washout/screens/customer/add_carwash_to_list_screen.dart';
 
 import 'package:washout/screens/customer/customer_home_screen.dart';
 import 'package:washout/screens/customer/merchant_detail_screen.dart';
@@ -22,7 +21,6 @@ final routes = {
   ManualTicketScreen.routeName: (ctx) => ManualTicketScreen(),
   QueueDetailScreen.routeName: (ctx) => const QueueDetailScreen(),
   SearchMerchantScreen.routeName: (ctx) => const SearchMerchantScreen(),
-  AddCarwashToListScreen.routeName: (ctx) => const AddCarwashToListScreen(),
   MerchantDetailScreen.routeName: (ctx) => const MerchantDetailScreen(),
   
 };

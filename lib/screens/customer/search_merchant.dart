@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-import 'package:washout/screens/customer/add_carwash_to_list_screen.dart';
 import 'package:washout/screens/customer/merchant_detail_screen.dart';
 import 'package:washout/services/firestore_merchants.dart';
 import 'package:washout/widgets/general/custom_appbar.dart';
@@ -40,11 +39,7 @@ class _SearchMerchantScreenState extends State<SearchMerchantScreen> {
       appBar: CustomAppBar(
         isMerchant: false,
       ),
-      drawer: CustomDrawer(
-        accountEmail: "mail@mail.com",
-        accountName: "Bob Somchai",
-        onSignOut: () {},
-      ),
+      drawer: CustomDrawer(),
       body: Column(
         children: [
           CustomBackButton(

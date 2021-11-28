@@ -59,7 +59,8 @@ class FirestoreCustomer {
 
   Future<Customer?> getCustomerByEmail(String email) async {
     try {
-      final snap = await customersCollection.where("email", isEqualTo: email).get();
+      final snap =
+          await customersCollection.where("email", isEqualTo: email).get();
       if (snap.docs.isEmpty) {
         return null;
       } else {
@@ -92,6 +93,7 @@ class FirestoreCustomer {
       final customer =
           await getCustomerByUID(FirebaseAuth.instance.currentUser!.uid);
       final carwashList = customer!.carwashList;
+
       carwashList.add(carwashUID!);
 
       final snap = await customersCollection
@@ -104,6 +106,27 @@ class FirestoreCustomer {
     } catch (e) {
       print(e);
       print("failed to append");
+    }
+  }
+
+  Future<void> removeCarwashFromList(String? carwashUID) async {
+    try {
+      final customer =
+          await getCustomerByUID(FirebaseAuth.instance.currentUser!.uid);
+      final carwashList = customer!.carwashList;
+
+      carwashList.removeWhere((element) => element == carwashUID);
+
+      final snap = await customersCollection
+          .where("uid", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .get();
+
+      await customersCollection.doc(snap.docs[0].id).update({
+        "carwashList": carwashList,
+      });
+    } catch (e) {
+      print(e);
+      print("failed to remove");
     }
   }
 }

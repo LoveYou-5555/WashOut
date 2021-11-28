@@ -13,6 +13,7 @@ class ManualTicketScreen extends StatelessWidget {
   static const routeName = "/manualTicket";
 
   final _licensePlate = TextEditingController();
+  final _phone = TextEditingController();
 
   Future<void> sendTicket(BuildContext context) async {
     if (_licensePlate.text.isNotEmpty) {
@@ -22,9 +23,12 @@ class ManualTicketScreen extends StatelessWidget {
       if (queue != null) {
         print("Cant create: dup plate");
       } else {
-        await FirestoreQueueTickets()
-            .createQueueTicketManually(licensePlate: _licensePlate.text);
+        await FirestoreQueueTickets().createQueueTicketManually(
+          licensePlate: _licensePlate.text,
+          phone: _phone.text.isEmpty ? null : _phone.text,
+        );
 
+        Future.delayed(const Duration(seconds: 2));
         Navigator.of(context).pop();
       }
     }
@@ -38,9 +42,6 @@ class ManualTicketScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: const MerchantAppBar(),
       drawer: CustomDrawer(
-        accountEmail: "mail@mail.com",
-        accountName: "Bob Somchai",
-        onSignOut: () {},
         primaryColor: kMerchantPrimary,
       ),
       resizeToAvoidBottomInset: false,
@@ -81,7 +82,15 @@ class ManualTicketScreen extends StatelessWidget {
                       hintText: "Customer's license plate",
                     ),
                   ),
-                  Container(height: 30),
+                  kSizedBoxVerticalS,
+                  TextField(
+                    controller: _phone,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: "Customer's phone",
+                    ),
+                  ),
+                  kSizedBoxVerticalS,
                   CustomButton(
                     onPressed: () => sendTicket(context),
                     color: kMerchantPrimary,

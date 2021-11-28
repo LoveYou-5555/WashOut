@@ -53,6 +53,18 @@ class LoginMerchantScreen extends StatelessWidget {
       } catch (e) {
         print(e);
         print("Can't sign in");
+        showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: Text("Failed to login"),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text("Close"),
+              )
+            ],
+          ),
+        );
       }
     }
   }

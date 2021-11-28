@@ -49,8 +49,31 @@ class _QueueDetailScreenState extends State<QueueDetailScreen> {
 
   Future<void> completeTicket(BuildContext context) async {
     print(ticket!.licensePlate);
-    await FirestoreQueueTickets()
-        .removeQueueTicketByLicensePlate(ticket!.licensePlate);
+    if (customer == null) {
+      await FirestoreQueueTickets()
+          .removeQueueTicketByLicensePlate(ticket!.licensePlate);
+    } else {
+      await FirestoreQueueTickets().updateTicketStatus(
+        licensePlate: ticket!.licensePlate,
+        newValue: "completed",
+      );
+    }
+
+    Navigator.of(context).pop();
+  }
+
+  Future<void> rejectTicket(BuildContext context) async {
+    print(ticket!.licensePlate);
+    if (customer == null) {
+      await FirestoreQueueTickets()
+          .removeQueueTicketByLicensePlate(ticket!.licensePlate);
+    } else {
+      await FirestoreQueueTickets().updateTicketStatus(
+        licensePlate: ticket!.licensePlate,
+        newValue: "rejected",
+      );
+    }
+
     Navigator.of(context).pop();
   }
 
@@ -64,11 +87,7 @@ class _QueueDetailScreenState extends State<QueueDetailScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: const MerchantAppBar(),
-      drawer: CustomDrawer(
-        accountEmail: "mail@mail.com",
-        accountName: "Bob Boc",
-        onSignOut: () {},
-      ),
+      drawer: CustomDrawer(),
       body: ticket == null
           ? Center(
               child: CircularProgressIndicator(
@@ -95,10 +114,13 @@ class _QueueDetailScreenState extends State<QueueDetailScreen> {
                       kSizedBoxVerticalM,
                       isManualTicket
                           ? Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "This ticket is issued by you",
+                                  "Customer's phone",
+                                ),
+                                Text(
+                                  ticket!.phone ?? "No phone given",
                                 ),
                               ],
                             )
@@ -134,10 +156,20 @@ class _QueueDetailScreenState extends State<QueueDetailScreen> {
                               ],
                             ),
                       kSizedBoxVerticalM,
-                      CustomButton(
-                        color: kMerchantPrimary,
-                        onPressed: () => completeTicket(context),
-                        text: "Complete this ticket",
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          CustomButton(
+                            color: kMerchantPrimary,
+                            onPressed: () => completeTicket(context),
+                            text: "Complete this ticket",
+                          ),
+                          CustomButton(
+                            color: kMerchantPrimary,
+                            onPressed: () => rejectTicket(context),
+                            text: "Reject this ticket",
+                          ),
+                        ],
                       ),
                     ],
                   ),

@@ -7,18 +7,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:washout/configs/colors.dart';
 import 'package:washout/configs/const.dart';
 import 'package:washout/screens/general/app_entry.dart';
+import 'package:washout/services/firestore_customers.dart';
+import 'package:washout/services/firestore_merchants.dart';
 
 class CustomDrawer extends StatefulWidget {
-  final String accountName;
-  final String accountEmail;
-  final void Function()? onSignOut;
   final Color primaryColor;
 
   const CustomDrawer({
     Key? key,
-    required this.accountName,
-    required this.accountEmail,
-    required this.onSignOut,
     this.primaryColor = kCustomerPrimary,
   }) : super(key: key);
 
@@ -27,24 +23,32 @@ class CustomDrawer extends StatefulWidget {
 }
 
 class _CustomDrawerState extends State<CustomDrawer> {
-  String? accountName;
-  String? accountEmail;
+  String accountName = "Loading";
+  String accountEmail = "Loading";
 
   Future<void> loadUserData() async {
     final pref = await SharedPreferences.getInstance();
-    if (pref.getBool("isMerchant") ?? false) {
-      setState(() {
-        accountName =
-            "${pref.getString(firstNamePrefKey)} ${pref.getString(lastNamePrefKey)}";
-      });
+
+    String name;
+    String? email;
+
+    if (pref.getBool("isMerchant")!) {
+      final merch = await FirestoreMerchants()
+          .getMerchantByUID(FirebaseAuth.instance.currentUser!.uid);
+
+      name = merch!.name;
+      email = merch.email;
     } else {
-      setState(() {
-        accountName = pref.getString(namePrefKey);
-      });
+      final cus = await FirestoreCustomer()
+          .getCustomerByUID(FirebaseAuth.instance.currentUser!.uid);
+
+      name = "${cus!.firstName} ${cus.lastName}";
+      email = cus.email;
     }
 
     setState(() {
-      accountEmail = FirebaseAuth.instance.currentUser?.email;
+      accountEmail = email!;
+      accountName = name;
     });
   }
 
@@ -80,10 +84,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
           TextButton(
             onPressed: () {
               _signOut(context);
-              // Navigator.of(context).pushNamedAndRemoveUntil(
-              //   AppEntry.routeName,
-              //   (route) => false,
-              // );
             },
             child: const Text('OK'),
           ),
@@ -97,13 +97,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
     return Drawer(
       child: ListView(
         children: <Widget>[
-          // UserAccountsDrawerHeader(
-          //   decoration: BoxDecoration(
-          //     color: widget.primaryColor,
-          //   ),
-          //   accountName: Text(accountName ?? "UNKNOWN"),
-          //   accountEmail: Text(accountEmail ?? "UNKNOWN"),
-          // ),
+          UserAccountsDrawerHeader(
+            decoration: BoxDecoration(
+              color: widget.primaryColor,
+            ),
+            accountName: Text(accountName),
+            accountEmail: Text(accountEmail),
+          ),
           TextButton(
             onPressed: () => _showSignOutDialog(context),
             child: Row(

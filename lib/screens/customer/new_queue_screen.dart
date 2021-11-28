@@ -48,11 +48,7 @@ class _NewQueueScreenState extends State<NewQueueScreen> {
       appBar: CustomAppBar(
         isMerchant: false,
       ),
-      drawer: CustomDrawer(
-        accountEmail: "mail@mail.com",
-        accountName: "Bob Somchai",
-        onSignOut: () {},
-      ),
+      drawer: CustomDrawer(),
       resizeToAvoidBottomInset: false,
       body: Column(
         children: [

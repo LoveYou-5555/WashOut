@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, must_be_immutable, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, avoid_unnecess ary_containers, must_be_immutable, prefer_const_literals_to_create_immutables
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -58,6 +58,18 @@ class LoginCustomerScreen extends StatelessWidget {
       } catch (e) {
         print(e);
         print("Can't sign in");
+        showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: Text("Failed to login"),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text("Close"),
+              )
+            ],
+          ),
+        );
       }
     }
   }

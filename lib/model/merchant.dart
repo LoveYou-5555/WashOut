@@ -10,4 +10,12 @@ class Merchant extends UserAccount {
     required String? email,
     required String? uid,
   }) : super(email: email, uid: uid);
+
+  factory Merchant.fromJSON(Map<String, dynamic> data) {
+    return Merchant(
+        name: data["name"],
+        carwashID: data["carwashID"],
+        email: data["email"],
+        uid: data["uid"]);
+  }
 }

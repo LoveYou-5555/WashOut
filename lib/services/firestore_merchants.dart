@@ -97,12 +97,7 @@ class FirestoreMerchants {
       } else {
         final data = snap.docs[0].data();
         print(data);
-        return Merchant(
-          name: data["name"],
-          carwashID: data["carwashID"],
-          email: data["phone"],
-          uid: uid,
-        );
+        return Merchant.fromJSON(data);
       }
     } catch (e) {
       print(e);

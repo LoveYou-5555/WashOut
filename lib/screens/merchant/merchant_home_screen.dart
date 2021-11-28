@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,30 +29,20 @@ class MerchantHomeScreen extends StatefulWidget {
 class _MerchantHomeScreenState extends State<MerchantHomeScreen> {
   Merchant? profile;
   List<QueueTicket?> tickets = [];
-  bool isLoading = true;
+  bool loadingProfile = true;
 
   Future<void> fetchScreenData() async {
     setState(() {
-      isLoading = true;
+      loadingProfile = true;
     });
-
-    print("Load quees");
 
     final data = await FirestoreMerchants()
         .getMerchantByUID(FirebaseAuth.instance.currentUser!.uid);
 
-    final queues = await FirestoreQueueTickets()
-        .getQueueTicketListByMerchant(FirebaseAuth.instance.currentUser!.uid);
-
-    queues.sort((a, b) =>
-        a!.createdAt.millisecondsSinceEpoch -
-        b!.createdAt.millisecondsSinceEpoch);
-
     profile = data;
-    tickets = queues;
 
     setState(() {
-      isLoading = false;
+      loadingProfile = false;
     });
   }
 
@@ -68,84 +59,115 @@ class _MerchantHomeScreenState extends State<MerchantHomeScreen> {
       appBar: MerchantAppBar(),
       drawer: CustomDrawer(
         primaryColor: kMerchantPrimary,
-        accountEmail: "AAA",
-        accountName: "BBB",
-        onSignOut: () {},
       ),
-      body: isLoading
-          ? Center(
-              child: CircularProgressIndicator(
+      body: Padding(
+        padding: const EdgeInsets.all(kScreenPadding),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              loadingProfile ? "Loading" : profile!.name,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
                 color: kMerchantPrimary,
+                fontSize: kSizeS,
               ),
-            )
-          : Padding(
-              padding: const EdgeInsets.all(kScreenPadding),
+            ),
+            Text(
+              loadingProfile ? "Loading" : "ID: ${profile!.carwashID}",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            kSizedBoxVerticalS,
+            Expanded(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(profile!.name),
-                  Text("ID: ${profile!.carwashID}"),
-                  kSizedBoxVerticalS,
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("Your queue"),
-                            CustomButton(
-                              onPressed: () {
-                                Navigator.of(context)
-                                    .pushNamed(ManualTicketScreen.routeName)
-                                    .then((value) => fetchScreenData());
-                              },
-                              text: "Add new ticket",
-                              color: kMerchantPrimary,
-                            ),
-                          ],
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Your queue",
+                        style: TextStyle(
+                          color: kMerchantPrimary,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
                         ),
-                        Expanded(
-                          child: tickets.isEmpty
-                              ? Center(
-                                  child: Text("No new ticket"),
-                                )
-                              : ListView.builder(
+                      ),
+                      CustomButton(
+                        onPressed: () {
+                          Navigator.of(context)
+                              .pushNamed(ManualTicketScreen.routeName);
+                        },
+                        text: "Add new ticket",
+                        color: kMerchantPrimary,
+                      ),
+                    ],
+                  ),
+                  StreamBuilder<QuerySnapshot>(
+                    stream: FirestoreQueueTickets().getQueueTicketStream(
+                      merchantUID: FirebaseAuth.instance.currentUser!.uid,
+                    ),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return CircularProgressIndicator();
+                      }
+
+                      var tickets = snapshot.data!.docs
+                          .map(
+                            (q) => QueueTicket.fromJSON(
+                              q.data() as Map<String, dynamic>,
+                            ),
+                          )
+                          .toList();
+
+                      tickets = tickets
+                          .where(
+                            (t) => t.status == QueueTicketStatus.active,
+                          )
+                          .toList();
+
+                      tickets.sort(
+                        (a, b) =>
+                            a.createdAt.millisecondsSinceEpoch -
+                            b.createdAt.millisecondsSinceEpoch,
+                      );
+
+                      return Expanded(
+                        child: tickets.isEmpty
+                            ? Center(
+                                child: Text("No new ticket"),
+                              )
+                            : ListView.builder(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: kSizeS),
+                                itemCount: tickets.length,
+                                itemBuilder: (context, index) => Padding(
                                   padding: const EdgeInsets.symmetric(
-                                      vertical: kSizeS),
-                                  itemCount: tickets.length,
-                                  itemBuilder: (context, index) => Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: kSizeXS),
-                                    child: QueueTicketCard(
-                                      createdAt: tickets[index]!.createdAt,
-                                      licensePlate:
-                                          tickets[index]!.licensePlate,
-                                      isOverdue: index == 0,
-                                      onPressed: () {
-                                        Navigator.of(context)
-                                            .pushNamed(
-                                              QueueDetailScreen.routeName,
-                                              arguments:
-                                                  tickets[index]!.licensePlate,
-                                            )
-                                            .then((value) => fetchScreenData());
-                                      },
-                                    ),
+                                      vertical: kSizeXS),
+                                  child: QueueTicketCard(
+                                    createdAt: tickets[index].createdAt,
+                                    licensePlate: tickets[index].licensePlate,
+                                    isOverdue: index == 0,
+                                    onPressed: () {
+                                      Navigator.of(context).pushNamed(
+                                        QueueDetailScreen.routeName,
+                                        arguments: tickets[index].licensePlate,
+                                      );
+                                    },
                                   ),
                                 ),
-                        ),
-                        CustomButton(
-                          onPressed: fetchScreenData,
-                          color: kMerchantPrimary,
-                          text: "Refresh",
-                        ),
-                      ],
-                    ),
+                              ),
+                      );
+                    },
                   ),
                 ],
               ),
             ),
+          ],
+        ),
+      ),
     );
   }
 }
